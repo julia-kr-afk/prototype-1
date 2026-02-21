@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobUA — Конструктор резюме</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">
+          <div class="header__logo-icon">J</div>
+          JobUA
+        </a>
+        <div class="header__actions">
+          <a href="my-resumes.html" class="btn btn--outline btn--sm">← Мої резюме</a>
+          <button class="btn btn--primary btn--sm" onclick="localStorage.setItem('workhard_has_resume','1'); window.location.href='my-resumes.html';">Зберегти</button>
+          <button class="mobile-menu-btn" aria-label="Меню">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div style="padding: var(--spacing-2xl) 0;">
+      <div class="container">
+
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-xl);">
+          <h1 class="section-title">Конструктор резюме</h1>
+          <div style="display: flex; gap: var(--spacing-sm);">
+            <button class="btn btn--outline btn--sm">Попередній перегляд</button>
+            <button class="btn btn--outline btn--sm">Завантажити PDF</button>
+          </div>
+        </div>
+
+        <!-- BUILDER LAYOUT: form left, preview right -->
+        <div class="layout-with-sidebar--right layout-with-sidebar">
+
+          <!-- LEFT: FORM SECTIONS -->
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-lg);">
+
+            <!-- Steps / Progress -->
+            <div class="placeholder-box" style="min-height: 60px; flex-direction: row; gap: 16px;">
+              <span style="font-weight: 700;">ПРОГРЕС-БАР</span>
+              <span>Особисті дані → Досвід → Освіта → Навички → Мови → Готово</span>
+            </div>
+
+            <!-- Personal info -->
+            <div class="placeholder-box" style="min-height: 280px; flex-direction: column; gap: 8px;">
+              <span style="font-weight: 700;">1. ОСОБИСТІ ДАНІ</span>
+              <span>Фото<br>Ім'я · Прізвище<br>Посада (бажана)<br>Телефон · Email · Місто<br>LinkedIn · Portfolio</span>
+            </div>
+
+            <!-- Work experience -->
+            <div class="placeholder-box" style="min-height: 320px; flex-direction: column; gap: 8px;">
+              <span style="font-weight: 700;">2. ДОСВІД РОБОТИ</span>
+              <span>Компанія · Посада<br>Період роботи (від — до)<br>Опис обов'язків<br>Кнопка "+ Додати ще місце роботи"</span>
+            </div>
+
+            <!-- Education -->
+            <div class="placeholder-box" style="min-height: 240px; flex-direction: column; gap: 8px;">
+              <span style="font-weight: 700;">3. ОСВІТА</span>
+              <span>Заклад · Спеціальність<br>Рівень освіти<br>Рік закінчення<br>Кнопка "+ Додати"</span>
+            </div>
+
+            <!-- Skills -->
+            <div class="placeholder-box" style="min-height: 180px; flex-direction: column; gap: 8px;">
+              <span style="font-weight: 700;">4. НАВИЧКИ</span>
+              <span>Теги зі скілами (input + додавання)<br>Рівень (beginner / intermediate / expert)</span>
+            </div>
+
+            <!-- Languages -->
+            <div class="placeholder-box" style="min-height: 160px; flex-direction: column; gap: 8px;">
+              <span style="font-weight: 700;">5. МОВИ</span>
+              <span>Мова + рівень (A1–C2)<br>Кнопка "+ Додати"</span>
+            </div>
+
+            <!-- About -->
+            <div class="placeholder-box" style="min-height: 160px; flex-direction: column; gap: 8px;">
+              <span style="font-weight: 700;">6. ПРО СЕБЕ</span>
+              <span>Textarea: короткий опис<br>Лічильник символів</span>
+            </div>
+
+            <!-- Save -->
+            <div style="display: flex; gap: var(--spacing-md);">
+              <button class="btn btn--primary btn--lg">Зберегти резюме</button>
+              <a href="my-resumes.html" class="btn btn--outline btn--lg">Скасувати</a>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: RESUME PREVIEW -->
+          <aside>
+            <div class="placeholder-box" style="min-height: 700px; flex-direction: column; gap: 8px; position: sticky; top: 88px;">
+              <span style="font-weight: 700;">ПОПЕРЕДНІЙ ПЕРЕГЛЯД РЕЗЮМЕ</span>
+              <span>Live-preview резюме у форматі A4<br>(оновлюється при заповненні форми)</span>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+
+        <!-- Brand -->
+        <div>
+          <a href="index.html" class="footer__brand">
+            <div class="header__logo-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+              </svg>
+            </div>
+            WorkHard
+          </a>
+          <p class="footer__desc">Платформа для пошуку роботи, де цінують ваш час та професіоналізм.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Twitter / X">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Платформа -->
+        <div>
+          <p class="footer__col-title">Платформа</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Про нас</a></li>
+            <li><a href="#" class="footer__link">Блог</a></li>
+            <li><a href="#" class="footer__link">Контакти</a></li>
+          </ul>
+        </div>
+
+        <!-- Роботодавцям -->
+        <div>
+          <p class="footer__col-title">Роботодавцям</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Розмістити вакансію</a></li>
+            <li><a href="#" class="footer__link">Тарифи</a></li>
+            <li><a href="#" class="footer__link">Успішні кейси</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <p class="footer__col-title">Legal</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Політика конфіденційності</a></li>
+            <li><a href="#" class="footer__link">Умови використання</a></li>
+            <li><a href="#" class="footer__link">Безпека та верифікація</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2025 JobUA. Всі права захищені.</span>
+        <span>Made in Ukraine &#127482;&#127462;</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

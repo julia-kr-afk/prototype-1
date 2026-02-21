@@ -1,0 +1,666 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobUA — Головна сторінка</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+
+        <!-- LOGO -->
+        <a href="index.html" class="header__logo">
+          <div class="header__logo-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="header__logo-text">WorkHard</span>
+        </a>
+
+        <!-- NAV -->
+        <nav class="header__nav">
+          <a href="jobs.html" class="header__nav-link">Пошук вакансій</a>
+          <a href="company.html" class="header__nav-link">Компанії</a>
+          <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
+          <a href="#" class="header__nav-link">Для роботодавців</a>
+          <a href="#" class="header__nav-link">Про нас</a>
+        </nav>
+
+        <!-- ACTIONS -->
+        <div class="header__actions">
+          <a href="profile.html" class="header__user-btn" aria-label="Профіль">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="7" r="3.5" stroke="#1A1A2E" stroke-width="1.5"/>
+              <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <button class="mobile-menu-btn" aria-label="Меню">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ======================== HERO ======================== -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__inner">
+
+          <!-- Badge -->
+          <div class="hero__badge">
+            <span class="hero__badge-dot"></span>
+            Понад 5000 нових вакансій цього тижня
+          </div>
+
+          <!-- Heading -->
+          <h1 class="hero__title">
+            Знайдіть роботу,<br>яка надихає на розвиток
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="hero__subtitle">
+            Ми перевіряємо кожну компанію та вакансію, щоб ви могли зосередитись на головному&nbsp;—
+            своїй кар'єрі. Без спаму та фейків.
+          </p>
+
+          <!-- Search form -->
+          <form class="hero__search" action="jobs.html">
+            <div class="hero__search-field">
+              <svg class="hero__search-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <circle cx="8" cy="8" r="5.5" stroke="#9CA3AF" stroke-width="1.5"/>
+                <path d="M13 13l2.5 2.5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <input class="hero__search-input" type="text" placeholder="Посада або ключові слова">
+            </div>
+            <div class="hero__search-divider"></div>
+            <div class="hero__search-field">
+              <svg class="hero__search-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M9 1.5C6.515 1.5 4.5 3.515 4.5 6c0 3.375 4.5 10.5 4.5 10.5S13.5 9.375 13.5 6c0-2.485-2.015-4.5-4.5-4.5z" stroke="#9CA3AF" stroke-width="1.5"/>
+                <circle cx="9" cy="6" r="1.5" stroke="#9CA3AF" stroke-width="1.5"/>
+              </svg>
+              <input class="hero__search-input" type="text" placeholder="Вкажіть ваше місто">
+            </div>
+            <button type="submit" class="hero__search-btn">Знайти вакансії</button>
+          </form>
+
+          <!-- Hints -->
+          <div class="hero__hints">
+            <label class="hero__radio">
+              <input type="radio" name="filter" checked>
+              <span class="hero__radio-mark"></span>
+              Тільки перевірені компанії
+            </label>
+            <a href="resume-builder.html" class="hero__link">
+              Створити резюме за 5 хвилин
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== ЧОМУ НАМ ДОВІРЯЮТЬ ======================== -->
+    <section class="trust">
+      <div class="container">
+        <h2 class="trust__title">Чому нам довіряють</h2>
+        <div class="trust__grid">
+
+          <!-- Card 1 -->
+          <div class="trust-card">
+            <div class="trust-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6l-8-4z" stroke="#1A1A2E" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M9 12l2 2 4-4" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="trust-card__title">Верифіковані роботодавці</h3>
+            <p class="trust-card__text">Кожна компанія проходить перевірку документів та контактних даних перед публікацією.</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="trust-card">
+            <div class="trust-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="3" width="16" height="18" rx="2" stroke="#1A1A2E" stroke-width="1.5"/>
+                <path d="M8 8h8M8 12h8M8 16h5" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="18" cy="18" r="4" fill="white" stroke="#1A1A2E" stroke-width="1.5"/>
+                <path d="M16.5 18l1 1 2-2" stroke="#1A1A2E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="trust-card__title">Статуси відгуку</h3>
+            <p class="trust-card__text">Бачите, чи доставлено, переглянуто або відхилено ваше резюме в реальному часі.</p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="trust-card">
+            <div class="trust-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2v2M12 20v2M2 12h2M20 12h2" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="7" stroke="#1A1A2E" stroke-width="1.5"/>
+                <path d="M12 8v4l2.5 2.5" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="trust-card__title">Прозора зарплата</h3>
+            <p class="trust-card__text">Позначки: вище / середня / нижча за ринок для цієї ролі. Ніяких «за домовленістю».</p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="trust-card">
+            <div class="trust-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="#1A1A2E" stroke-width="1.5"/>
+                <path d="M12 7v5l3 3" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="trust-card__title">Актуальність вакансій</h3>
+            <p class="trust-card__text">Автоматичний статус: активна, закрита або призупинена. Тільки свіжі пропозиції.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== РЕКОМЕНДОВАНІ ВАКАНСІЇ ======================== -->
+    <section class="jobs-section">
+      <div class="container">
+
+        <!-- Section header -->
+        <div class="jobs-section__header">
+          <h2 class="jobs-section__title">Рекомендовані вакансії</h2>
+          <a href="jobs.html" class="jobs-section__link">Всі вакансії →</a>
+        </div>
+
+        <!-- Grid -->
+        <div class="jobs-section__grid">
+
+          <!-- Card 1: GlobalLogic -->
+          <a href="job.html" class="job-card">
+            <div class="job-card__top">
+              <div class="job-card__logo" style="background: #E5E7EB; color: #374151;">G</div>
+              <span class="badge badge--success">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" style="margin-right:4px">
+                  <circle cx="5.5" cy="5.5" r="5.5" fill="#10B981" opacity=".15"/>
+                  <circle cx="5.5" cy="5.5" r="2.5" fill="#10B981"/>
+                </svg>
+                Активна
+              </span>
+            </div>
+            <div>
+              <h3 class="job-card__title">Senior Product Designer</h3>
+              <div class="job-card__company">
+                <span>GlobalLogic</span>
+                <svg class="job-card__verified" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="7" fill="#2B5CE6"/>
+                  <path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="job-card__rating">★ 4.8</span>
+              </div>
+            </div>
+            <div class="job-card__meta">
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 1C5.07 1 3.5 2.57 3.5 4.5c0 2.625 3.5 8.167 3.5 8.167S10.5 7.125 10.5 4.5C10.5 2.57 8.93 1 7 1z" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <circle cx="7" cy="4.5" r="1.167" stroke="#9CA3AF" stroke-width="1.2"/>
+                </svg>
+                Київ / Hybrid
+              </div>
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <path d="M7 4v3l2 1.5" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                $4 000 – $6 000
+                <span class="badge badge--success" style="font-size:11px; padding:2px 8px;">Вище ринку</span>
+              </div>
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <path d="M7 4v3l2 1.5" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                2 години тому
+              </div>
+            </div>
+            <div class="job-card__footer">
+              <span class="job-card__apply">Відгукнутись</span>
+              <button class="job-card__save" aria-label="Зберегти" onclick="return false;">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 2h10a1 1 0 011 1v10.5l-6-3-6 3V3a1 1 0 011-1z" stroke="#6B7280" stroke-width="1.3"/>
+                </svg>
+              </button>
+            </div>
+          </a>
+
+          <!-- Card 2: MacPaw -->
+          <a href="job.html" class="job-card">
+            <div class="job-card__top">
+              <div class="job-card__logo" style="background: #1A1A2E; color: #fff;">M</div>
+              <span class="badge badge--success">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" style="margin-right:4px">
+                  <circle cx="5.5" cy="5.5" r="5.5" fill="#10B981" opacity=".15"/>
+                  <circle cx="5.5" cy="5.5" r="2.5" fill="#10B981"/>
+                </svg>
+                Активна
+              </span>
+            </div>
+            <div>
+              <h3 class="job-card__title">Frontend Developer (React)</h3>
+              <div class="job-card__company">
+                <span>MacPaw</span>
+                <svg class="job-card__verified" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="7" fill="#2B5CE6"/>
+                  <path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="job-card__rating">★ 5.0</span>
+              </div>
+            </div>
+            <div class="job-card__meta">
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 1C5.07 1 3.5 2.57 3.5 4.5c0 2.625 3.5 8.167 3.5 8.167S10.5 7.125 10.5 4.5C10.5 2.57 8.93 1 7 1z" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <circle cx="7" cy="4.5" r="1.167" stroke="#9CA3AF" stroke-width="1.2"/>
+                </svg>
+                Віддалено
+              </div>
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <path d="M7 4v3l2 1.5" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                $3 000 – $4 500
+                <span class="badge badge--neutral" style="font-size:11px; padding:2px 8px;">В ринку</span>
+              </div>
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <path d="M7 4v3l2 1.5" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                Сьогодні
+              </div>
+            </div>
+            <div class="job-card__footer">
+              <span class="job-card__apply">Відгукнутись</span>
+              <button class="job-card__save" aria-label="Зберегти" onclick="return false;">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 2h10a1 1 0 011 1v10.5l-6-3-6 3V3a1 1 0 011-1z" stroke="#6B7280" stroke-width="1.3"/>
+                </svg>
+              </button>
+            </div>
+          </a>
+
+          <!-- Card 3: Nova Post -->
+          <a href="job.html" class="job-card">
+            <div class="job-card__top">
+              <div class="job-card__logo" style="background: #FF6B35; color: #fff;">N</div>
+              <span class="badge badge--success">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" style="margin-right:4px">
+                  <circle cx="5.5" cy="5.5" r="5.5" fill="#10B981" opacity=".15"/>
+                  <circle cx="5.5" cy="5.5" r="2.5" fill="#10B981"/>
+                </svg>
+                Активна
+              </span>
+            </div>
+            <div>
+              <h3 class="job-card__title">Marketing Manager</h3>
+              <div class="job-card__company">
+                <span>Nova Post</span>
+                <svg class="job-card__verified" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="7" fill="#2B5CE6"/>
+                  <path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="job-card__rating">★ 4.5</span>
+              </div>
+            </div>
+            <div class="job-card__meta">
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 1C5.07 1 3.5 2.57 3.5 4.5c0 2.625 3.5 8.167 3.5 8.167S10.5 7.125 10.5 4.5C10.5 2.57 8.93 1 7 1z" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <circle cx="7" cy="4.5" r="1.167" stroke="#9CA3AF" stroke-width="1.2"/>
+                </svg>
+                Львів
+              </div>
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <path d="M7 4v3l2 1.5" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                $1 500 – $2 200
+                <span class="badge badge--neutral" style="font-size:11px; padding:2px 8px;">В ринку</span>
+              </div>
+              <div class="job-card__meta-row">
+                <svg class="job-card__meta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6" stroke="#9CA3AF" stroke-width="1.2"/>
+                  <path d="M7 4v3l2 1.5" stroke="#9CA3AF" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+                Вчора
+              </div>
+            </div>
+            <div class="job-card__footer">
+              <span class="job-card__apply">Відгукнутись</span>
+              <button class="job-card__save" aria-label="Зберегти" onclick="return false;">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 2h10a1 1 0 011 1v10.5l-6-3-6 3V3a1 1 0 011-1z" stroke="#6B7280" stroke-width="1.3"/>
+                </svg>
+              </button>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== RESUME BUILDER CTA ======================== -->
+    <section class="resume-cta">
+      <div class="container">
+        <div class="resume-cta__inner">
+
+          <!-- LEFT: Text -->
+          <div class="resume-cta__content">
+            <span class="resume-cta__label">Resume Builder</span>
+            <h2 class="resume-cta__title">Створи резюме швидко і просто</h2>
+            <p class="resume-cta__subtitle">Не витрачайте час на форматування. Наш конструктор допоможе створити професійне резюме, яке помітять рекрутери.</p>
+
+            <!-- Features -->
+            <ul class="resume-cta__features">
+              <li class="resume-cta__feature">
+                <div class="resume-cta__feature-icon">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <rect x="1" y="1" width="6" height="6" rx="1.5" fill="white" opacity=".9"/>
+                    <rect x="11" y="1" width="6" height="6" rx="1.5" fill="white" opacity=".9"/>
+                    <rect x="1" y="11" width="6" height="6" rx="1.5" fill="white" opacity=".9"/>
+                    <rect x="11" y="11" width="6" height="6" rx="1.5" fill="white" opacity=".4"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="resume-cta__feature-title">Гнучкий конструктор</p>
+                  <p class="resume-cta__feature-text">Легко додавайте та міняйте блоки місцями.</p>
+                </div>
+              </li>
+              <li class="resume-cta__feature">
+                <div class="resume-cta__feature-icon">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <path d="M9 1l1.8 5.4H17l-4.9 3.6 1.8 5.4L9 12.4l-4.9 3.6 1.8-5.4L1 7.4h6.2L9 2z" stroke="white" stroke-width="1.3" stroke-linejoin="round" opacity=".9"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="resume-cta__feature-title">AI-перевірка</p>
+                  <p class="resume-cta__feature-text">Штучний інтелект підкаже, як покращити опис досвіду.</p>
+                </div>
+              </li>
+              <li class="resume-cta__feature">
+                <div class="resume-cta__feature-icon">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <circle cx="9" cy="9" r="7.5" stroke="white" stroke-width="1.3" opacity=".9"/>
+                    <circle cx="9" cy="9" r="3" stroke="white" stroke-width="1.3" opacity=".9"/>
+                    <path d="M9 1.5V4M9 14v2.5M1.5 9H4M14 9h2.5" stroke="white" stroke-width="1.3" stroke-linecap="round" opacity=".6"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="resume-cta__feature-title">Підлаштування під вакансію</p>
+                  <p class="resume-cta__feature-text">Адаптуйте резюме під конкретні вимоги в один клік.</p>
+                </div>
+              </li>
+            </ul>
+
+            <a href="resume-builder.html" class="resume-cta__btn">Створити резюме →</a>
+          </div>
+
+          <!-- RIGHT: Resume preview mockup -->
+          <div class="resume-cta__preview">
+            <div class="resume-preview-card">
+
+              <!-- Header: avatar + name -->
+              <div class="resume-preview-card__header">
+                <div class="resume-preview-card__avatar"></div>
+                <div class="resume-preview-card__header-lines">
+                  <div class="resume-preview-card__line" style="width: 68%; height: 10px;"></div>
+                  <div class="resume-preview-card__line" style="width: 44%; height: 7px;"></div>
+                </div>
+              </div>
+
+              <!-- Divider -->
+              <div class="resume-preview-card__divider"></div>
+
+              <!-- Досвід роботи -->
+              <div class="resume-preview-card__section">
+                <div class="resume-preview-card__line" style="width: 38%; height: 7px; margin-bottom: 10px;"></div>
+                <div class="resume-preview-card__line" style="width: 100%; height: 5px;"></div>
+                <div class="resume-preview-card__line" style="width: 85%; height: 5px;"></div>
+                <div class="resume-preview-card__line" style="width: 72%; height: 5px;"></div>
+              </div>
+
+              <!-- Освіта -->
+              <div class="resume-preview-card__section">
+                <div class="resume-preview-card__line" style="width: 30%; height: 7px; margin-bottom: 10px;"></div>
+                <div class="resume-preview-card__line" style="width: 90%; height: 5px;"></div>
+                <div class="resume-preview-card__line" style="width: 55%; height: 5px;"></div>
+              </div>
+
+              <!-- Нижні блоки -->
+              <div class="resume-preview-card__section" style="margin-bottom: 0;">
+                <div class="resume-preview-card__line" style="width: 26%; height: 7px; margin-bottom: 10px;"></div>
+                <div class="resume-preview-card__blocks">
+                  <div class="resume-preview-card__block"></div>
+                  <div class="resume-preview-card__block"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <div class="container">
+        <h2 class="faq__title">Часті запитання</h2>
+        <div class="faq__list">
+
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>Як я дізнаюсь, що моє резюме переглянули?</span>
+              <svg class="faq__chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="5 8 10 13 15 8"/>
+              </svg>
+            </summary>
+            <div class="faq__answer">
+              Ви отримаєте сповіщення на пошту та у розділі «Мої відгуки». Статус відгуку автоматично зміниться на «Переглянуто» — так ви будете в курсі, що роботодавець відкрив ваше резюме.
+            </div>
+          </details>
+
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>Чи всі компанії на платформі перевірені?</span>
+              <svg class="faq__chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="5 8 10 13 15 8"/>
+              </svg>
+            </summary>
+            <div class="faq__answer">
+              Так, усі компанії проходять модерацію перед публікацією вакансій. Верифіковані роботодавці позначені значком ✓ поруч із назвою компанії — це означає, що їхні дані підтверджені.
+            </div>
+          </details>
+
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>Що означає позначка «Зарплата нижча за ринок»?</span>
+              <svg class="faq__chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="5 8 10 13 15 8"/>
+              </svg>
+            </summary>
+            <div class="faq__answer">
+              Ми порівнюємо зарплату вакансії з медіанними показниками по ринку для схожих позицій і рівнів досвіду. Якщо пропозиція суттєво нижча — позначаємо вакансію відповідним бейджем, щоб ви могли приймати усвідомлене рішення.
+            </div>
+          </details>
+
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>Що робити, якщо компанія не відповідає на відгук?</span>
+              <svg class="faq__chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="5 8 10 13 15 8"/>
+              </svg>
+            </summary>
+            <div class="faq__answer">
+              Спробуйте оновити резюме та надіслати повторний відгук через 2 тижні. Також рекомендуємо увімкнути підписку на схожі вакансії — так ви не пропустите нові пропозиції від інших компаній.
+            </div>
+          </details>
+
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>Як часто оновлюється каталог вакансій?</span>
+              <svg class="faq__chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="5 8 10 13 15 8"/>
+              </svg>
+            </summary>
+            <div class="faq__answer">
+              Каталог оновлюється щодня. Нові вакансії позначені міткою «Нова» та відображаються у верхній частині результатів пошуку. Налаштуйте підписку — і свіжі пропозиції приходитимуть прямо на вашу пошту.
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA — ПІДПИСКА -->
+    <section class="newsletter">
+      <div class="container">
+        <div class="newsletter__inner">
+
+          <!-- Icon -->
+          <div class="newsletter__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <polyline points="2,4 12,13 22,4"/>
+            </svg>
+          </div>
+
+          <h2 class="newsletter__title">Отримуйте нові вакансії першими</h2>
+          <p class="newsletter__subtitle">Налаштуйте підписку та отримуйте дайджест щотижня.</p>
+
+          <!-- Form -->
+          <form class="newsletter__form" action="job-subscription.html">
+            <input class="newsletter__input" type="email" placeholder="Ваш email">
+            <button class="newsletter__btn" type="submit">Підписатись</button>
+          </form>
+
+          <!-- Checkboxes -->
+          <div class="newsletter__checkboxes">
+            <label class="newsletter__checkbox-label">
+              <input type="checkbox" checked>
+              <span class="newsletter__checkbox-box">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="1.5,5 4,7.5 8.5,2.5"/>
+                </svg>
+              </span>
+              Тільки перевірені компанії
+            </label>
+
+            <label class="newsletter__checkbox-label">
+              <input type="checkbox">
+              <span class="newsletter__checkbox-box">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="1.5,5 4,7.5 8.5,2.5"/>
+                </svg>
+              </span>
+              Високі зарплати
+            </label>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+
+        <!-- Brand -->
+        <div>
+          <a href="index.html" class="footer__brand">
+            <div class="header__logo-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+              </svg>
+            </div>
+            WorkHard
+          </a>
+          <p class="footer__desc">Платформа для пошуку роботи, де цінують ваш час та професіоналізм.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Twitter / X">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Платформа -->
+        <div>
+          <p class="footer__col-title">Платформа</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Про нас</a></li>
+            <li><a href="#" class="footer__link">Блог</a></li>
+            <li><a href="#" class="footer__link">Контакти</a></li>
+          </ul>
+        </div>
+
+        <!-- Роботодавцям -->
+        <div>
+          <p class="footer__col-title">Роботодавцям</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Розмістити вакансію</a></li>
+            <li><a href="#" class="footer__link">Тарифи</a></li>
+            <li><a href="#" class="footer__link">Успішні кейси</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <p class="footer__col-title">Legal</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Політика конфіденційності</a></li>
+            <li><a href="#" class="footer__link">Умови використання</a></li>
+            <li><a href="#" class="footer__link">Безпека та верифікація</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="footer__bottom">
+        <span>© 2025 JobUA. Всі права захищені.</span>
+        <span>Made in Ukraine 🇺🇦</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

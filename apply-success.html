@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkHard — Відгук надіслано</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .success-page {
+      background: var(--color-bg-light);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 16px;
+    }
+
+    .success-page__title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 32px;
+      line-height: 1.2;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    localStorage.setItem('workhard_has_application', '1');
+  </script>
+
+  <div class="success-page">
+    <div>
+      <h1 class="success-page__title">Відгук надіслано🥸</h1>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="my-applications.html" class="btn btn--dark btn--md" style="display:inline-flex; align-items:center; gap:6px; text-decoration:none;">
+          Мої відгуки →
+        </a>
+        <a href="index.html" class="btn btn--outline btn--md" style="display:inline-flex; align-items:center; text-decoration:none;">
+          На головну
+        </a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkHard — Мої резюме</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">
+          <div class="header__logo-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="header__logo-text">WorkHard</span>
+        </a>
+        <nav class="header__nav">
+          <a href="jobs.html" class="header__nav-link">Пошук вакансій</a>
+          <a href="company.html" class="header__nav-link">Компанії</a>
+          <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
+          <a href="#" class="header__nav-link">Для роботодавців</a>
+          <a href="#" class="header__nav-link">Про нас</a>
+        </nav>
+        <div class="header__actions">
+          <a href="profile.html" class="header__user-btn" aria-label="Профіль">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="7" r="3.5" stroke="#1A1A2E" stroke-width="1.5"/>
+              <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <button class="mobile-menu-btn" aria-label="Меню">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="profile-layout">
+    <div class="container">
+      <div class="layout-with-sidebar">
+
+        <!-- SIDEBAR -->
+        <aside>
+          <div class="profile-sidebar">
+
+            <!-- User info -->
+            <div class="profile-sidebar__user">
+              <div class="profile-sidebar__avatar">СШ</div>
+              <div>
+                <div class="profile-sidebar__name">Софія Шевчук</div>
+                <span class="profile-sidebar__badge">1 резюме</span>
+              </div>
+            </div>
+
+            <!-- Nav -->
+            <nav class="profile-nav">
+              <a href="my-resumes.html" class="profile-nav__item active">
+                <span>Мої резюме</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="my-applications.html" class="profile-nav__item">
+                <span>Мої відгуки</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="saved-jobs.html" class="profile-nav__item">
+                <span>Обрані вакансії</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="#" class="profile-nav__item">
+                <span>Заблоковані роботодавці</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="job-subscription.html" class="profile-nav__item">
+                <span>Підписки на вакансії</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="#" class="profile-nav__item">
+                <span>Інше</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <div class="profile-nav__divider"></div>
+              <a href="#" class="profile-nav__item profile-nav__item--danger" onclick="logout(); return false;">
+                <span>Вийти з акаунту</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </nav>
+
+          </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div>
+
+          <!-- Page header -->
+          <div class="profile-content__header">
+            <h1 class="profile-content__title">Мої резюме</h1>
+            <a href="resume-builder.html" class="btn btn--dark btn--md" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Створити резюме
+            </a>
+          </div>
+
+          <!-- Empty state (shown when no resume) -->
+          <div id="state-empty" class="profile-empty">
+            <div class="profile-empty__text">Немає резюме🧐</div>
+            <a href="resume-builder.html" class="btn btn--dark btn--md" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Створити резюме
+            </a>
+          </div>
+
+          <!-- Resume card (shown after creating) -->
+          <div id="state-filled" class="resume-card" style="display:none;">
+            <div class="resume-card__top">
+
+              <!-- Avatar -->
+              <div class="resume-card__avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </div>
+
+              <!-- Info -->
+              <div class="resume-card__info">
+                <span class="badge badge--success" style="width: fit-content;">Активний пошук</span>
+                <div class="resume-card__title">Дизайнер інтерфейсів</div>
+                <div class="resume-card__sub">Доступно для роботодавців</div>
+              </div>
+
+              <!-- Right actions -->
+              <div class="resume-card__right">
+                <button class="btn btn--outline btn--sm">Підняти у пошуку</button>
+                <button class="resume-card__menu-btn" aria-label="Меню" onclick="deleteResume()">···</button>
+              </div>
+
+            </div>
+
+            <!-- Stats row -->
+            <div class="resume-card__bottom">
+              <div class="resume-card__stats">
+                <span class="resume-card__stat">Переглянули <strong>54</strong> роботодавці</span>
+                <span class="resume-card__stats-sep">|</span>
+                <span class="resume-card__stat">Вакансії для вас: <strong>13</strong></span>
+              </div>
+              <a href="resume-builder.html" class="btn btn--dark btn--sm" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                Редагувати резюме
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <a href="index.html" class="footer__brand">
+            <div class="header__logo-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+              </svg>
+            </div>
+            WorkHard
+          </a>
+          <p class="footer__desc">Платформа для пошуку роботи, де цінують ваш час та професіоналізм.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Twitter / X">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Платформа</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Про нас</a></li>
+            <li><a href="#" class="footer__link">Блог</a></li>
+            <li><a href="#" class="footer__link">Контакти</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Роботодавцям</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Розмістити вакансію</a></li>
+            <li><a href="#" class="footer__link">Тарифи</a></li>
+            <li><a href="#" class="footer__link">Успішні кейси</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Legal</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Політика конфіденційності</a></li>
+            <li><a href="#" class="footer__link">Умови використання</a></li>
+            <li><a href="#" class="footer__link">Безпека та верифікація</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2025 WorkHard. Всі права захищені.</span>
+        <span>Made in Ukraine &#127482;&#127462;</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var empty  = document.getElementById('state-empty');
+    var filled = document.getElementById('state-filled');
+
+    // Show correct state on load
+    var hasResume = localStorage.getItem('workhard_has_resume');
+    empty.style.display  = hasResume ? 'none'  : 'flex';
+    filled.style.display = hasResume ? 'block' : 'none';
+
+    function logout() {
+      if (confirm('Вийти з акаунту? Всі дані буде очищено.')) {
+        localStorage.removeItem('workhard_has_resume');
+        localStorage.removeItem('workhard_has_application');
+        window.location.href = 'index.html';
+      }
+    }
+
+    // Delete resume
+    function deleteResume() {
+      if (confirm('Видалити резюме?')) {
+        localStorage.removeItem('workhard_has_resume');
+        filled.style.display = 'none';
+        empty.style.display  = 'flex';
+      }
+    }
+  </script>
+
+</body>
+</html>

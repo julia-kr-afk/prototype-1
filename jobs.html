@@ -1,0 +1,915 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobUA — Вакансії</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+
+        <!-- LOGO -->
+        <a href="index.html" class="header__logo">
+          <div class="header__logo-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="header__logo-text">WorkHard</span>
+        </a>
+
+        <!-- NAV -->
+        <nav class="header__nav">
+          <a href="jobs.html" class="header__nav-link active">Пошук вакансій</a>
+          <a href="company.html" class="header__nav-link">Компанії</a>
+          <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
+          <a href="#" class="header__nav-link">Для роботодавців</a>
+          <a href="#" class="header__nav-link">Про нас</a>
+        </nav>
+
+        <!-- ACTIONS -->
+        <div class="header__actions">
+          <a href="profile.html" class="header__user-btn" aria-label="Профіль">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="7" r="3.5" stroke="#1A1A2E" stroke-width="1.5"/>
+              <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <button class="mobile-menu-btn" aria-label="Меню">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SEARCH BAR -->
+    <section class="jobs-search">
+      <div class="container">
+
+        <!-- Search form -->
+        <form class="jobs-search__form">
+          <!-- Job title field -->
+          <div class="jobs-search__field">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input class="jobs-search__input" type="text" placeholder="Дизайнер інтерфейсів, Front-end...">
+          </div>
+          <!-- City field -->
+          <div class="jobs-search__field jobs-search__field--city">
+            <svg width="16" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <input class="jobs-search__input" type="text" placeholder="Київ">
+          </div>
+          <button class="jobs-search__btn" type="submit">Знайти</button>
+        </form>
+
+        <!-- Hints & tags -->
+        <div class="jobs-search__hints">
+          <div class="jobs-search__hint-row">
+            <span class="jobs-search__hint-label">Популярні запити:</span>
+            <a href="#" class="jobs-search__tag">Project Manager</a>
+            <a href="#" class="jobs-search__tag">QA Engineer</a>
+            <a href="#" class="jobs-search__tag">Marketing</a>
+            <a href="#" class="jobs-search__tag">Data Analyst</a>
+            <a href="#" class="jobs-search__tag">DevOps</a>
+          </div>
+          <div class="jobs-search__hint-row">
+            <span class="jobs-search__hint-label">Ви шукали:</span>
+            <a href="#" class="jobs-search__tag">Front-end</a>
+            <a href="#" class="jobs-search__tag">UI/UX Designer</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTENT: LIST + FILTERS -->
+    <section style="padding: var(--spacing-2xl) 0; background: var(--color-bg-light);">
+      <div class="container">
+        <div class="layout-with-sidebar layout-with-sidebar--right">
+
+          <!-- LEFT: JOB LIST -->
+          <div>
+
+            <!-- Results header -->
+            <div class="jobs-results-header">
+              <div>
+                <h1 class="jobs-results-title">Вакансії за запитом «Product Designer»</h1>
+                <p class="jobs-results-count">Знайдено 243 вакансії</p>
+              </div>
+              <button class="sort-select">За релевантністю ▾</button>
+            </div>
+
+            <!-- Active filters -->
+            <div class="active-filters">
+              <span class="active-filter">Повна зайнятість <span class="active-filter__remove">×</span></span>
+              <span class="active-filter">Київ / Гібрид <span class="active-filter__remove">×</span></span>
+              <span class="active-filter">Від $1 000 <span class="active-filter__remove">×</span></span>
+              <a href="#" class="active-filters__clear">Очистити все</a>
+            </div>
+
+            <!-- Job cards — Page 1 -->
+            <div id="jobs-page-1" style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+
+              <!-- Card 1: Senior Product Designer / Monobank -->
+              <div class="jcard">
+                <div class="jcard__top">
+                  <div class="jcard__logo" style="background: #1A1A2E;">M</div>
+                  <div class="jcard__info">
+                    <div class="jcard__title-row">
+                      <a href="job.html" class="jcard__title">Senior Product Designer</a>
+                      <div class="jcard__salary-block">
+                        <span class="jcard__salary">$4 000 – $6 000</span>
+                        <span class="badge badge--success">Вище ринку</span>
+                      </div>
+                    </div>
+                    <div class="jcard__company-row">
+                      <a href="company.html" class="jcard__company">Monobank</a>
+                      <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 4.9</span>
+                    </div>
+                    <div class="jcard__meta">
+                      <span class="jcard__meta-item">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+                        Київ · Гібрид
+                      </span>
+                      <span class="jcard__meta-item">🕐 2 години тому</span>
+                      <span class="badge badge--info" style="font-size: 11px; padding: 2px 8px;">⚡ Швидка відповідь</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="jcard__desc">Шукаємо досвідченого дизайнера для роботи над новим напрямком фінансових продуктів. Участь у повному циклі дизайну від discovery до деплою.</p>
+                <div class="jcard__footer">
+                  <div class="jcard__tags">
+                    <span class="jcard__tag">Figma</span>
+                    <span class="jcard__tag">Mobile Apps</span>
+                    <span class="jcard__tag">FinTech</span>
+                  </div>
+                  <div class="jcard__actions">
+                    <button class="jcard__save" aria-label="Зберегти">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                    </button>
+                    <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
+                    <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Product Designer (Growth) / Grammarly — HOT -->
+              <div class="jcard">
+                <div class="jcard__top">
+                  <div class="jcard__logo" style="background: #15C26B;">G</div>
+                  <div class="jcard__info">
+                    <div class="jcard__title-row">
+                      <div class="jcard__title-group">
+                        <a href="job.html" class="jcard__title">Product Designer (Growth)</a>
+                        <span class="badge badge--accent">🔥 HOT</span>
+                      </div>
+                      <div class="jcard__salary-block">
+                        <span class="jcard__salary">$3 500 – $5 000</span>
+                        <span class="badge badge--neutral">В ринку</span>
+                      </div>
+                    </div>
+                    <div class="jcard__company-row">
+                      <a href="company.html" class="jcard__company">Grammarly</a>
+                      <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 5.0</span>
+                    </div>
+                    <div class="jcard__meta">
+                      <span class="jcard__meta-item">🌍 Remote Worldwide</span>
+                      <span class="jcard__meta-item">🕐 5 годин тому</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="jcard__notification">
+                  <span class="jcard__notification-dot"></span>
+                  Компанія переглянула ваше резюме на схожу позицію 2 дні тому
+                </div>
+                <div class="jcard__footer">
+                  <div class="jcard__tags">
+                    <span class="jcard__tag">SaaS</span>
+                    <span class="jcard__tag">Analytics</span>
+                    <span class="jcard__tag">Growth</span>
+                  </div>
+                  <div class="jcard__actions">
+                    <button class="jcard__save" aria-label="Зберегти">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                    </button>
+                    <a href="apply.html" class="jcard__btn jcard__btn--primary">Відгукнутись в 1 клік</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 3: UX/UI Designer / SoftServe -->
+              <div class="jcard">
+                <div class="jcard__top">
+                  <div class="jcard__logo" style="background: #6366F1;">S</div>
+                  <div class="jcard__info">
+                    <div class="jcard__title-row">
+                      <a href="job.html" class="jcard__title">UX/UI Designer</a>
+                      <div class="jcard__salary-block">
+                        <span class="jcard__salary" style="color: var(--color-text-secondary); font-weight: 400;">За домовленістю</span>
+                      </div>
+                    </div>
+                    <div class="jcard__company-row">
+                      <a href="company.html" class="jcard__company">SoftServe</a>
+                      <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 4.5</span>
+                    </div>
+                    <div class="jcard__meta">
+                      <span class="jcard__meta-item">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+                        Львів · Офіс
+                      </span>
+                      <span class="jcard__meta-item">🕐 Вчора</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="jcard__desc">Потрібен фахівець з досвідом у Enterprise системах. Робота над великим B2B продуктом для міжнародного ринку в команді з 8 дизайнерів.</p>
+                <div class="jcard__footer">
+                  <div class="jcard__tags">
+                    <span class="jcard__tag">Enterprise</span>
+                    <span class="jcard__tag">Design System</span>
+                    <span class="jcard__tag">B2B</span>
+                  </div>
+                  <div class="jcard__actions">
+                    <button class="jcard__save" aria-label="Зберегти">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                    </button>
+                    <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
+                    <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 4: Junior Web Designer / Nova Post -->
+              <div class="jcard">
+                <div class="jcard__top">
+                  <div class="jcard__logo" style="background: #FF6B35;">N</div>
+                  <div class="jcard__info">
+                    <div class="jcard__title-row">
+                      <a href="job.html" class="jcard__title">Junior Web Designer</a>
+                      <div class="jcard__salary-block">
+                        <span class="jcard__salary">$800 – $1 200</span>
+                      </div>
+                    </div>
+                    <div class="jcard__company-row">
+                      <a href="company.html" class="jcard__company">Nova Post</a>
+                      <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span class="badge badge--neutral" style="font-size: 11px; padding: 2px 8px;">Без досвіду</span>
+                    </div>
+                    <div class="jcard__meta">
+                      <span class="jcard__meta-item">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+                        Київ · Гібрид
+                      </span>
+                      <span class="jcard__meta-item">🕐 3 дні тому</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="jcard__footer">
+                  <div class="jcard__tags">
+                    <span class="jcard__tag">Photoshop</span>
+                    <span class="jcard__tag">Adobe XD</span>
+                    <span class="jcard__tag">HTML/CSS</span>
+                  </div>
+                  <div class="jcard__actions">
+                    <button class="jcard__save" aria-label="Зберегти">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                    </button>
+                    <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hidden extra cards for "Show more" -->
+              <div id="jobs-more" style="display:none; flex-direction:column; gap:var(--spacing-md);">
+
+                <!-- Extra Card 1: Product Manager / Uklon -->
+                <div class="jcard">
+                  <div class="jcard__top">
+                    <div class="jcard__logo" style="background:#7C3AED;">U</div>
+                    <div class="jcard__info">
+                      <div class="jcard__title-row">
+                        <a href="job.html" class="jcard__title">Product Manager</a>
+                        <div class="jcard__salary-block">
+                          <span class="jcard__salary">$3 000 – $4 500</span>
+                          <span class="badge badge--success">Вище ринку</span>
+                        </div>
+                      </div>
+                      <div class="jcard__company-row">
+                        <a href="company.html" class="jcard__company">Uklon</a>
+                        <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 4.7</span>
+                      </div>
+                      <div class="jcard__meta">
+                        <span class="jcard__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Київ · Гібрид</span>
+                        <span class="jcard__meta-item">🕐 1 день тому</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="jcard__desc">Шукаємо PM для розвитку мобільного додатку з 5M+ користувачів. Будеш відповідати за growth-напрямок та A/B-тестування нових фіч.</p>
+                  <div class="jcard__footer">
+                    <div class="jcard__tags"><span class="jcard__tag">Roadmap</span><span class="jcard__tag">Mobile</span><span class="jcard__tag">Agile</span></div>
+                    <div class="jcard__actions">
+                      <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                      <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
+                      <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Extra Card 2: Motion Designer / MacPaw -->
+                <div class="jcard">
+                  <div class="jcard__top">
+                    <div class="jcard__logo" style="background:#F59E0B;">M</div>
+                    <div class="jcard__info">
+                      <div class="jcard__title-row">
+                        <a href="job.html" class="jcard__title">Motion Designer</a>
+                        <div class="jcard__salary-block">
+                          <span class="jcard__salary">$2 500 – $3 500</span>
+                          <span class="badge badge--neutral">В ринку</span>
+                        </div>
+                      </div>
+                      <div class="jcard__company-row">
+                        <a href="company.html" class="jcard__company">MacPaw</a>
+                        <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 4.8</span>
+                      </div>
+                      <div class="jcard__meta">
+                        <span class="jcard__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Київ · Офіс</span>
+                        <span class="jcard__meta-item">🕐 2 дні тому</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="jcard__desc">Шукаємо Motion Designer для створення анімацій для macOS та iOS додатків. Досвід з After Effects та Lottie обов'язковий.</p>
+                  <div class="jcard__footer">
+                    <div class="jcard__tags"><span class="jcard__tag">After Effects</span><span class="jcard__tag">Lottie</span><span class="jcard__tag">iOS</span></div>
+                    <div class="jcard__actions">
+                      <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                      <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
+                      <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- end jobs-more -->
+
+            </div><!-- end jobs-page-1 -->
+
+            <!-- Page 2 cards (hidden) -->
+            <div id="jobs-page-2" style="display:none; flex-direction:column; gap:var(--spacing-md);">
+
+              <!-- P2 Card 1: Lead UX Researcher / Grammarly -->
+              <div class="jcard">
+                <div class="jcard__top">
+                  <div class="jcard__logo" style="background:#15C26B;">G</div>
+                  <div class="jcard__info">
+                    <div class="jcard__title-row">
+                      <a href="job.html" class="jcard__title">Lead UX Researcher</a>
+                      <div class="jcard__salary-block">
+                        <span class="jcard__salary">$5 000 – $7 000</span>
+                        <span class="badge badge--success">Вище ринку</span>
+                      </div>
+                    </div>
+                    <div class="jcard__company-row">
+                      <a href="company.html" class="jcard__company">Grammarly</a>
+                      <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 5.0</span>
+                    </div>
+                    <div class="jcard__meta">
+                      <span class="jcard__meta-item">🌍 Remote Worldwide</span>
+                      <span class="jcard__meta-item">🕐 3 години тому</span>
+                      <span class="badge badge--info" style="font-size:11px;padding:2px 8px;">⚡ Швидка відповідь</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="jcard__desc">Шукаємо досвідченого UX Researcher для проведення user interviews, usability-тестувань та формування продуктових інсайтів.</p>
+                <div class="jcard__footer">
+                  <div class="jcard__tags"><span class="jcard__tag">User Research</span><span class="jcard__tag">Usability</span><span class="jcard__tag">SaaS</span></div>
+                  <div class="jcard__actions">
+                    <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                    <a href="apply.html" class="jcard__btn jcard__btn--primary">Відгукнутись в 1 клік</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- P2 Card 2: Brand Designer / Rozetka -->
+              <div class="jcard">
+                <div class="jcard__top">
+                  <div class="jcard__logo" style="background:#10B981;">R</div>
+                  <div class="jcard__info">
+                    <div class="jcard__title-row">
+                      <a href="job.html" class="jcard__title">Brand Designer</a>
+                      <div class="jcard__salary-block">
+                        <span class="jcard__salary">$2 000 – $3 000</span>
+                        <span class="badge badge--neutral">В ринку</span>
+                      </div>
+                    </div>
+                    <div class="jcard__company-row">
+                      <a href="company.html" class="jcard__company">Rozetka</a>
+                      <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 4.3</span>
+                    </div>
+                    <div class="jcard__meta">
+                      <span class="jcard__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Київ · Гібрид</span>
+                      <span class="jcard__meta-item">🕐 Вчора</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="jcard__desc">Шукаємо Brand Designer для розвитку візуальної ідентичності найбільшого e-commerce в Україні. Робота з брендбуком, рекламними матеріалами.</p>
+                <div class="jcard__footer">
+                  <div class="jcard__tags"><span class="jcard__tag">Branding</span><span class="jcard__tag">Illustrator</span><span class="jcard__tag">E-commerce</span></div>
+                  <div class="jcard__actions">
+                    <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                    <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
+                    <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- P2 Card 3: UI Designer / Ajax Systems -->
+              <div class="jcard">
+                <div class="jcard__top">
+                  <div class="jcard__logo" style="background:#EF4444;">A</div>
+                  <div class="jcard__info">
+                    <div class="jcard__title-row">
+                      <a href="job.html" class="jcard__title">UI Designer</a>
+                      <div class="jcard__salary-block">
+                        <span class="jcard__salary">$2 500 – $4 000</span>
+                        <span class="badge badge--success">Вище ринку</span>
+                      </div>
+                    </div>
+                    <div class="jcard__company-row">
+                      <a href="company.html" class="jcard__company">Ajax Systems</a>
+                      <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 4.6</span>
+                    </div>
+                    <div class="jcard__meta">
+                      <span class="jcard__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Київ · Офіс</span>
+                      <span class="jcard__meta-item">🕐 4 дні тому</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="jcard__desc">Потрібен UI Designer для роботи над мобільними та веб-інтерфейсами систем безпеки. Продукт використовується в 187 країнах.</p>
+                <div class="jcard__footer">
+                  <div class="jcard__tags"><span class="jcard__tag">Figma</span><span class="jcard__tag">IoT</span><span class="jcard__tag">Mobile UI</span></div>
+                  <div class="jcard__actions">
+                    <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                    <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
+                    <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- P2 Card 4: Web Designer / Ukrzaliznytsia -->
+              <div class="jcard">
+                <div class="jcard__top">
+                  <div class="jcard__logo" style="background:#2563EB;">З</div>
+                  <div class="jcard__info">
+                    <div class="jcard__title-row">
+                      <a href="job.html" class="jcard__title">Web Designer</a>
+                      <div class="jcard__salary-block">
+                        <span class="jcard__salary" style="color:var(--color-text-secondary);font-weight:400;">За домовленістю</span>
+                      </div>
+                    </div>
+                    <div class="jcard__company-row">
+                      <a href="company.html" class="jcard__company">Укрзалізниця</a>
+                      <svg class="jcard__verified" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2B5CE6"/><path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span class="jcard__rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> 4.1</span>
+                    </div>
+                    <div class="jcard__meta">
+                      <span class="jcard__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Київ · Офіс</span>
+                      <span class="jcard__meta-item">🕐 5 днів тому</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="jcard__footer">
+                  <div class="jcard__tags"><span class="jcard__tag">HTML/CSS</span><span class="jcard__tag">Figma</span><span class="jcard__tag">Держсектор</span></div>
+                  <div class="jcard__actions">
+                    <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                    <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
+                    <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- end jobs-page-2 -->
+
+            <!-- Load more -->
+            <div class="jobs-load-more" id="jobs-load-more-wrap">
+              <button class="jobs-load-more__btn" id="jobs-load-more-btn">Показати ще 20 вакансій</button>
+            </div>
+
+            <!-- Pagination -->
+            <nav class="pagination" id="jobs-pagination">
+              <span class="pagination__item" data-page="prev">‹</span>
+              <span class="pagination__item active" data-page="1">1</span>
+              <span class="pagination__item" data-page="2">2</span>
+              <span class="pagination__item" data-page="3">3</span>
+              <span class="pagination__item">…</span>
+              <span class="pagination__item" data-page="12">12</span>
+              <span class="pagination__item" data-page="next">›</span>
+            </nav>
+
+          </div><!-- end job list -->
+
+          <!-- RIGHT: FILTERS -->
+          <aside class="filters">
+            <div class="filters__header">
+              <h2 class="filters__title">Фільтри</h2>
+              <a href="#" class="filters__reset">Скинути все</a>
+            </div>
+
+            <!-- Тип зайнятості -->
+            <div class="filters__section">
+              <p class="filters__section-title">Тип зайнятості</p>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input" checked>
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Повна зайнятість
+                </label>
+                <span class="filters__count">124</span>
+              </div>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Часткова
+                </label>
+                <span class="filters__count">22</span>
+              </div>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Проектна робота
+                </label>
+                <span class="filters__count">15</span>
+              </div>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Стажування
+                </label>
+                <span class="filters__count">8</span>
+              </div>
+            </div>
+
+            <!-- Досвід -->
+            <div class="filters__section">
+              <p class="filters__section-title">Досвід</p>
+              <div class="filters__radio-group">
+                <label class="filters__radio-pill">
+                  <input type="radio" name="experience" class="filters__radio-input">
+                  <span>Без досвіду</span>
+                </label>
+                <label class="filters__radio-pill">
+                  <input type="radio" name="experience" class="filters__radio-input" checked>
+                  <span>1–3 роки</span>
+                </label>
+                <label class="filters__radio-pill">
+                  <input type="radio" name="experience" class="filters__radio-input">
+                  <span>3–5 років</span>
+                </label>
+                <label class="filters__radio-pill">
+                  <input type="radio" name="experience" class="filters__radio-input">
+                  <span>5+ років</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Формат роботи -->
+            <div class="filters__section">
+              <p class="filters__section-title">Формат роботи</p>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Офіс
+                </label>
+              </div>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input" checked>
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Гібрид
+                </label>
+              </div>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Віддалено
+                </label>
+              </div>
+            </div>
+
+            <!-- Зарплата -->
+            <div class="filters__section">
+              <p class="filters__section-title">Зарплата, $</p>
+              <div class="filters__range-vals">
+                <span>$1 000</span>
+                <span>$5 000</span>
+              </div>
+              <input type="range" class="filters__range-input" min="0" max="10000" value="5000">
+              <label class="filters__toggle-label">
+                <input type="checkbox" class="filters__toggle-input">
+                <span class="filters__toggle-track"></span>
+                Лише із зазначеною зарплатою
+              </label>
+            </div>
+
+            <!-- Дата публікації -->
+            <div class="filters__section">
+              <p class="filters__section-title">Дата публікації</p>
+              <div class="filters__radio-group">
+                <label class="filters__radio-pill">
+                  <input type="radio" name="date" class="filters__radio-input">
+                  <span>Сьогодні</span>
+                </label>
+                <label class="filters__radio-pill">
+                  <input type="radio" name="date" class="filters__radio-input">
+                  <span>3 дні</span>
+                </label>
+                <label class="filters__radio-pill">
+                  <input type="radio" name="date" class="filters__radio-input" checked>
+                  <span>Тиждень</span>
+                </label>
+                <label class="filters__radio-pill">
+                  <input type="radio" name="date" class="filters__radio-input">
+                  <span>Місяць</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Мова -->
+            <div class="filters__section">
+              <p class="filters__section-title">Мова вакансії</p>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input" checked>
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Українська
+                </label>
+              </div>
+              <div class="filters__item">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Англійська
+                </label>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="filters__actions">
+              <button class="filters__apply-btn">Застосувати</button>
+              <button class="filters__save-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                Зберегти пошук
+              </button>
+            </div>
+
+            <!-- Фільтри довіри -->
+            <div class="filters__section">
+              <div class="filters__trust-header">
+                <span class="filters__trust-dot"></span>
+                <p class="filters__section-title" style="margin-bottom: 0;">Фільтри довіри</p>
+              </div>
+
+              <div class="filters__item" style="margin-top: 12px;">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input" checked>
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Верифікована компанія
+                </label>
+              </div>
+
+              <!-- Рейтинг роботодавця -->
+              <p class="filters__section-title" style="margin-top: 12px; font-size: var(--font-size-xs); font-weight: 500; color: var(--color-text-secondary);">Рейтинг роботодавця</p>
+              <div class="filters__radio-group">
+                <label class="filters__radio-pill">
+                  <input type="radio" name="rating" class="filters__radio-input" checked>
+                  <span>★ 4+</span>
+                </label>
+                <label class="filters__radio-pill">
+                  <input type="radio" name="rating" class="filters__radio-input">
+                  <span>★ 3+</span>
+                </label>
+                <label class="filters__radio-pill">
+                  <input type="radio" name="rating" class="filters__radio-input">
+                  <span>Будь-який</span>
+                </label>
+              </div>
+
+              <!-- Прозорі умови -->
+              <div class="filters__item" style="margin-top: 12px;">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Прозорі умови
+                </label>
+              </div>
+              <div class="filters__sub-items">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input" checked>
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Вказана зарплата
+                </label>
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Чіткі вимоги
+                </label>
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Офіційне працевлаштування
+                </label>
+              </div>
+
+              <div class="filters__item" style="margin-top: 12px;">
+                <label class="filters__check-label">
+                  <input type="checkbox" class="filters__check-input">
+                  <span class="filters__check-box"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+                  Є відгуки співробітників
+                </label>
+              </div>
+            </div>
+
+            <!-- Справедливість зарплати -->
+            <div class="filters__section" style="padding-bottom: 0; border-bottom: none;">
+              <div class="filters__fairness-row">
+                <p class="filters__section-title" style="margin-bottom: 0;">Справедливість зарплати</p>
+                <span class="filters__tooltip-wrap" data-tip="Ми оцінюємо відповідність вилки зарплати вимогам вакансії">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                  </svg>
+                </span>
+              </div>
+              <label class="filters__toggle-label" style="margin-top: 12px;">
+                <input type="checkbox" class="filters__toggle-input" checked>
+                <span class="filters__toggle-track"></span>
+                Зарплата відповідає вимогам
+              </label>
+            </div>
+
+          </aside><!-- end filters -->
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+
+        <!-- Brand -->
+        <div>
+          <a href="index.html" class="footer__brand">
+            <div class="header__logo-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+              </svg>
+            </div>
+            WorkHard
+          </a>
+          <p class="footer__desc">Платформа для пошуку роботи, де цінують ваш час та професіоналізм.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Twitter / X">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Платформа -->
+        <div>
+          <p class="footer__col-title">Платформа</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Про нас</a></li>
+            <li><a href="#" class="footer__link">Блог</a></li>
+            <li><a href="#" class="footer__link">Контакти</a></li>
+          </ul>
+        </div>
+
+        <!-- Роботодавцям -->
+        <div>
+          <p class="footer__col-title">Роботодавцям</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Розмістити вакансію</a></li>
+            <li><a href="#" class="footer__link">Тарифи</a></li>
+            <li><a href="#" class="footer__link">Успішні кейси</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <p class="footer__col-title">Legal</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Політика конфіденційності</a></li>
+            <li><a href="#" class="footer__link">Умови використання</a></li>
+            <li><a href="#" class="footer__link">Безпека та верифікація</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2025 JobUA. Всі права захищені.</span>
+        <span>Made in Ukraine &#127482;&#127462;</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var page1    = document.getElementById('jobs-page-1');
+      var page2    = document.getElementById('jobs-page-2');
+      var more     = document.getElementById('jobs-more');
+      var moreWrap = document.getElementById('jobs-load-more-wrap');
+      var moreBtn  = document.getElementById('jobs-load-more-btn');
+      var items    = document.querySelectorAll('#jobs-pagination [data-page]');
+
+      // ── "Show more" reveals hidden cards on page 1
+      moreBtn.addEventListener('click', function () {
+        more.style.display = 'flex';
+        moreWrap.style.display = 'none';
+      });
+
+      // ── Pagination switching
+      function goToPage(n) {
+        var isPage1 = (n === 1);
+        page1.style.display = isPage1 ? 'flex' : 'none';
+        page2.style.display = isPage1 ? 'none' : 'flex';
+
+        // Reset "show more" when returning to page 1
+        if (isPage1) {
+          more.style.display = 'none';
+          moreWrap.style.display = 'flex';
+        }
+
+        moreWrap.style.display = isPage1 ? 'flex' : 'none';
+
+        // Update active state
+        items.forEach(function (el) { el.classList.remove('active'); });
+        items.forEach(function (el) {
+          if (el.dataset.page === String(n)) el.classList.add('active');
+        });
+
+        // Scroll to top of list
+        page1.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      var currentPage = 1;
+
+      items.forEach(function (el) {
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function () {
+          var p = this.dataset.page;
+          if (p === 'prev') { if (currentPage > 1)  { currentPage--; goToPage(currentPage); } }
+          else if (p === 'next') { if (currentPage < 3)  { currentPage++; goToPage(currentPage); } }
+          else {
+            var n = parseInt(p);
+            if (!isNaN(n) && n <= 3) { currentPage = n; goToPage(currentPage); }
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
