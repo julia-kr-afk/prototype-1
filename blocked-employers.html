@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkHard — Заблоковані роботодавці</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Employer card ── */
+    .employer-card {
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: box-shadow 0.2s;
+    }
+
+    .employer-card:hover {
+      box-shadow: 0 4px 16px rgba(10,12,28,0.07);
+    }
+
+    .employer-card__logo {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .employer-card__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .employer-card__name {
+      font-size: var(--font-size-base);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .employer-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .employer-card__industry {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .employer-card__sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--color-text-secondary);
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    .employer-card__rating {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .employer-card__rating span {
+      color: #F59E0B;
+      font-size: 12px;
+    }
+
+    .employer-card__blocked-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: var(--font-size-xs);
+      font-weight: 500;
+      color: #DC2626;
+      background: rgba(239,68,68,0.08);
+      border-radius: var(--radius-full);
+      padding: 3px 10px;
+    }
+
+    .employer-card__actions {
+      flex-shrink: 0;
+    }
+
+    .btn-unblock {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--color-text);
+      background: var(--color-bg);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-unblock:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: rgba(43,92,230,0.05);
+    }
+
+    .btn-unblock svg {
+      transition: stroke 0.2s;
+    }
+
+    /* Blocked overlay on employer card */
+    .employer-card--blocked {
+      opacity: 0.85;
+      position: relative;
+    }
+
+    .blocked-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(239,68,68,0.05);
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      margin-top: 10px;
+    }
+
+    .blocked-since {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+  </style>
+</head>
+<body class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo">
+          <div class="header__logo-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="header__logo-text">WorkHard</span>
+        </a>
+        <nav class="header__nav">
+          <a href="jobs.html" class="header__nav-link">Пошук вакансій</a>
+          <a href="company.html" class="header__nav-link">Компанії</a>
+          <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
+          <a href="for-employers.html" class="header__nav-link">Для роботодавців</a>
+          <a href="about.html" class="header__nav-link">Про нас</a>
+        </nav>
+        <div class="header__actions">
+          <a href="profile.html" class="header__user-btn" aria-label="Профіль">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="7" r="3.5" stroke="#1A1A2E" stroke-width="1.5"/>
+              <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <button class="mobile-menu-btn" aria-label="Меню">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="profile-layout">
+    <div class="container">
+      <div class="layout-with-sidebar">
+
+        <!-- SIDEBAR -->
+        <aside>
+          <div class="profile-sidebar">
+            <div class="profile-sidebar__user">
+              <div class="profile-sidebar__avatar">СШ</div>
+              <div>
+                <div class="profile-sidebar__name">Софія Шевчук</div>
+                <span class="profile-sidebar__badge" id="sidebar-count">4 заблоковані</span>
+              </div>
+            </div>
+            <nav class="profile-nav">
+              <a href="my-resumes.html" class="profile-nav__item">
+                <span>Мої резюме</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="my-applications.html" class="profile-nav__item">
+                <span>Мої відгуки</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="saved-jobs.html" class="profile-nav__item">
+                <span>Обрані вакансії</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="blocked-employers.html" class="profile-nav__item active">
+                <span>Заблоковані роботодавці</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="job-subscription.html" class="profile-nav__item">
+                <span>Підписки на вакансії</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="other.html" class="profile-nav__item">
+                <span>Інше</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <div class="profile-nav__divider"></div>
+              <a href="#" class="profile-nav__item profile-nav__item--danger">
+                <span>Вийти з акаунту</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </nav>
+          </div>
+        </aside>
+
+        <!-- CONTENT -->
+        <div>
+
+          <!-- Page header -->
+          <div class="profile-content__header">
+            <h1 class="profile-content__title">Заблоковані роботодавці</h1>
+          </div>
+
+          <!-- Info banner -->
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:14px 18px;background:rgba(239,68,68,0.05);border:1.5px solid rgba(239,68,68,0.15);border-radius:var(--radius-md);margin-bottom:24px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="8" cy="8" r="6.5" stroke="#DC2626" stroke-width="1.3"/><path d="M8 5v3.5M8 10.5h.01" stroke="#DC2626" stroke-width="1.3" stroke-linecap="round"/></svg>
+            <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.55;margin:0;">Заблоковані роботодавці не бачать ваше резюме та не можуть з вами зв'язатись. Їхні вакансії не відображаються у вашому пошуку.</p>
+          </div>
+
+          <!-- Employer list -->
+          <div id="blocked-list" style="display:flex;flex-direction:column;gap:14px;"></div>
+
+          <!-- Empty state -->
+          <div id="blocked-empty" class="profile-empty" style="display:none;">
+            <div class="profile-empty__text">Заблокованих роботодавців немає 🛡️</div>
+            <a href="jobs.html" class="btn btn--dark btn--md" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Переглянути вакансії
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <a href="index.html" class="footer__brand">
+            <div class="header__logo-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+              </svg>
+            </div>
+            WorkHard
+          </a>
+          <p class="footer__desc">Платформа для пошуку роботи, де цінують ваш час та професіоналізм.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Twitter / X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Платформа</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Про нас</a></li>
+            <li><a href="#" class="footer__link">Блог</a></li>
+            <li><a href="#" class="footer__link">Контакти</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Роботодавцям</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Розмістити вакансію</a></li>
+            <li><a href="#" class="footer__link">Тарифи</a></li>
+            <li><a href="#" class="footer__link">Успішні кейси</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Legal</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Політика конфіденційності</a></li>
+            <li><a href="#" class="footer__link">Умови використання</a></li>
+            <li><a href="#" class="footer__link">Безпека та верифікація</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2025 WorkHard. Всі права захищені.</span>
+        <span>Made in Ukraine &#127482;&#127462;</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="profile-init.js"></script>
+  <script>
+    (function() {
+      var KEY = 'workhard_blocked_employers';
+
+      // Default blocked employers (seeded if nothing in localStorage)
+      var DEFAULT_BLOCKED = [
+        {
+          id: 'softserve',
+          name: 'SoftServe',
+          industry: 'IT-аутсорсинг',
+          employees: '10 000+ співробітників',
+          rating: '3.8',
+          logoBg: '#1A73E8',
+          logoTxt: 'SS',
+          blockedAt: '15 лют 2026'
+        },
+        {
+          id: 'epam',
+          name: 'EPAM Systems',
+          industry: 'IT-аутсорсинг',
+          employees: '50 000+ співробітників',
+          rating: '3.5',
+          logoBg: '#0A3254',
+          logoTxt: 'EP',
+          blockedAt: '8 лют 2026'
+        },
+        {
+          id: 'globallogic',
+          name: 'GlobalLogic',
+          industry: 'IT-послуги та консалтинг',
+          employees: '20 000+ співробітників',
+          rating: '4.0',
+          logoBg: '#E63946',
+          logoTxt: 'GL',
+          blockedAt: '2 лют 2026'
+        },
+        {
+          id: 'luxoft',
+          name: 'Luxoft',
+          industry: 'IT-аутсорсинг · Фінтех',
+          employees: '15 000+ співробітників',
+          rating: '3.6',
+          logoBg: '#1A1A2E',
+          logoTxt: 'LX',
+          blockedAt: '28 січ 2026'
+        }
+      ];
+
+      function getBlocked() {
+        var raw = localStorage.getItem(KEY);
+        if (raw === null) {
+          // First visit — seed defaults
+          localStorage.setItem(KEY, JSON.stringify(DEFAULT_BLOCKED));
+          return DEFAULT_BLOCKED;
+        }
+        try { return JSON.parse(raw) || []; } catch(e) { return []; }
+      }
+
+      function setBlocked(arr) { localStorage.setItem(KEY, JSON.stringify(arr)); }
+
+      window.unblockEmployer = function(id) {
+        var list = getBlocked();
+        var name = (list.find(function(e){ return e.id === id; }) || {}).name || 'роботодавця';
+        if (confirm('Розблокувати «' + name + '»?\nВони знову зможуть бачити ваше резюме та їхні вакансії з\'являться у пошуку.')) {
+          setBlocked(list.filter(function(e){ return e.id !== id; }));
+          render();
+        }
+      };
+
+      function render() {
+        var blocked = getBlocked();
+        var listEl  = document.getElementById('blocked-list');
+        var emptyEl = document.getElementById('blocked-empty');
+        var badge   = document.getElementById('sidebar-count');
+
+        var n = blocked.length;
+        if (badge) badge.textContent = n + ' ' + (n === 1 ? 'заблокований' : n < 5 ? 'заблоковані' : 'заблокованих');
+
+        if (!n) {
+          listEl.style.display  = 'none';
+          emptyEl.style.display = 'flex';
+          return;
+        }
+        emptyEl.style.display = 'none';
+        listEl.style.display  = 'flex';
+
+        var ICON_BLOCK = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>';
+        var ICON_UNLOCK = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0"/></svg>';
+
+        listEl.innerHTML = blocked.map(function(e) {
+          var logoColor = (e.logoBg && e.logoBg !== '#fff' && e.logoBg !== 'white') ? '#fff' : '#333';
+          return '<div class="employer-card employer-card--blocked">'
+            + '<div class="employer-card__logo" style="background:' + e.logoBg + ';color:' + logoColor + ';">' + e.logoTxt + '</div>'
+            + '<div class="employer-card__info">'
+              + '<div class="employer-card__name">' + e.name + '</div>'
+              + '<div class="employer-card__meta">'
+                + '<span class="employer-card__industry">' + e.industry + '</span>'
+                + '<span class="employer-card__sep"></span>'
+                + '<span class="employer-card__industry">' + e.employees + '</span>'
+                + '<span class="employer-card__sep"></span>'
+                + '<span class="employer-card__rating"><span>★</span> ' + e.rating + '</span>'
+              + '</div>'
+              + '<div style="margin-top:8px;">'
+                + '<span class="employer-card__blocked-label">' + ICON_BLOCK + ' Заблоковано ' + e.blockedAt + '</span>'
+              + '</div>'
+            + '</div>'
+            + '<div class="employer-card__actions">'
+              + '<button class="btn-unblock" onclick="unblockEmployer(\'' + e.id + '\')">' + ICON_UNLOCK + ' Розблокувати</button>'
+            + '</div>'
+          + '</div>';
+        }).join('');
+      }
+
+      render();
+    })();
+  </script>
+
+</body>
+</html>

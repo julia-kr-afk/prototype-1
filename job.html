@@ -31,8 +31,8 @@
           <a href="jobs.html" class="header__nav-link active">Пошук вакансій</a>
           <a href="company.html" class="header__nav-link">Компанії</a>
           <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
-          <a href="#" class="header__nav-link">Для роботодавців</a>
-          <a href="#" class="header__nav-link">Про нас</a>
+          <a href="for-employers.html" class="header__nav-link">Для роботодавців</a>
+          <a href="about.html" class="header__nav-link">Про нас</a>
         </nav>
 
         <!-- ACTIONS -->
@@ -83,7 +83,7 @@
                 Відгукнутися
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </a>
-              <button class="job-hero__save-btn" aria-label="Зберегти вакансію">
+              <button class="job-hero__save-btn" id="heroSaveBtn" aria-label="Зберегти вакансію" onclick="toggleHeroSave()">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
               </button>
             </div>
@@ -565,6 +565,56 @@
       </div>
     </div>
   </footer>
+
+  <style>
+    .job-hero__save-btn--saved { background: rgba(43,92,230,0.08); border-color: var(--color-primary); }
+    .job-hero__save-btn--saved svg { fill: var(--color-primary); stroke: var(--color-primary); }
+  </style>
+
+  <script>
+    (function() {
+      var KEY  = 'workhard_saved_jobs';
+      var JOB  = {
+        id:      'senior-product-designer-mobile|monobank',
+        title:   'Senior Product Designer (Mobile)',
+        company: 'Monobank',
+        salary:  '$4 000 – $6 000',
+        location: 'Київ · Дистанційно',
+        logoBg:  '#1A1A2E',
+        logoTxt: 'M'
+      };
+
+      function getSaved() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e) { return []; } }
+      function setSaved(arr) { localStorage.setItem(KEY, JSON.stringify(arr)); }
+      function isSaved() { return getSaved().some(function(j){ return j.id === JOB.id; }); }
+
+      var btn = document.getElementById('heroSaveBtn');
+
+      function updateBtn(saved) {
+        if (saved) { btn.classList.add('job-hero__save-btn--saved'); btn.setAttribute('aria-label','Видалити зі збережених'); }
+        else        { btn.classList.remove('job-hero__save-btn--saved'); btn.setAttribute('aria-label','Зберегти вакансію'); }
+      }
+
+      window.toggleHeroSave = function() {
+        var saved = getSaved();
+        var idx   = saved.findIndex(function(j){ return j.id === JOB.id; });
+        if (idx >= 0) {
+          saved.splice(idx, 1);
+          setSaved(saved);
+          updateBtn(false);
+        } else {
+          var now = new Date();
+          var mon = ['січ','лют','бер','кві','тра','чер','лип','сер','вер','жов','лис','гру'];
+          var job = Object.assign({}, JOB, { savedAt: now.getDate() + ' ' + mon[now.getMonth()] + ' ' + now.getFullYear() });
+          saved.push(job);
+          setSaved(saved);
+          updateBtn(true);
+        }
+      };
+
+      updateBtn(isSaved());
+    })();
+  </script>
 
 </body>
 </html>

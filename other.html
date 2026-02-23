@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WorkHard — Компанії</title>
+  <title>WorkHard — Інше</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="page-wrapper">
@@ -25,7 +25,7 @@
         </a>
         <nav class="header__nav">
           <a href="jobs.html" class="header__nav-link">Пошук вакансій</a>
-          <a href="company.html" class="header__nav-link active">Компанії</a>
+          <a href="company.html" class="header__nav-link">Компанії</a>
           <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
           <a href="for-employers.html" class="header__nav-link">Для роботодавців</a>
           <a href="about.html" class="header__nav-link">Про нас</a>
@@ -37,16 +37,74 @@
               <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </a>
-          <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+          <button class="mobile-menu-btn" aria-label="Меню">
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </div>
     </div>
   </header>
 
-  <main style="flex:1;display:flex;align-items:center;justify-content:center;min-height:400px;">
-    <div style="text-align:center;">
-      <div style="font-size:48px;line-height:1;margin-bottom:16px;">🚧</div>
-      <div style="font-size:var(--font-size-lg);font-weight:700;color:var(--color-text);margin-bottom:8px;">Сторінка ще в розробці</div>
+  <main class="profile-layout">
+    <div class="container">
+      <div class="layout-with-sidebar">
+
+        <!-- SIDEBAR -->
+        <aside>
+          <div class="profile-sidebar">
+            <div class="profile-sidebar__user">
+              <div class="profile-sidebar__avatar">СШ</div>
+              <div>
+                <div class="profile-sidebar__name">Софія Шевчук</div>
+              </div>
+            </div>
+            <nav class="profile-nav">
+              <a href="my-resumes.html" class="profile-nav__item">
+                <span>Мої резюме</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="my-applications.html" class="profile-nav__item">
+                <span>Мої відгуки</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="saved-jobs.html" class="profile-nav__item">
+                <span>Обрані вакансії</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="blocked-employers.html" class="profile-nav__item">
+                <span>Заблоковані роботодавці</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="job-subscription.html" class="profile-nav__item">
+                <span>Підписки на вакансії</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="other.html" class="profile-nav__item active">
+                <span>Інше</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <div class="profile-nav__divider"></div>
+              <a href="#" class="profile-nav__item profile-nav__item--danger">
+                <span>Вийти з акаунту</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </nav>
+          </div>
+        </aside>
+
+        <!-- CONTENT -->
+        <div>
+          <div class="profile-content__header">
+            <h1 class="profile-content__title">Інше</h1>
+          </div>
+
+          <div class="profile-empty">
+            <span style="font-size: 48px; line-height: 1;">🚧</span>
+            <div class="profile-empty__text">Сторінка ще в розробці</div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </main>
 
@@ -105,5 +163,6 @@
     </div>
   </footer>
 
+  <script src="profile-init.js"></script>
 </body>
 </html>

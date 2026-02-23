@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobUA — Створення вакансії</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Post Job Page ── */
+    .post-job-page {
+      background: var(--color-bg-light);
+      padding: 40px 0 80px;
+    }
+
+    .post-job-header {
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      padding: 20px 0;
+      margin-bottom: 32px;
+    }
+
+    .post-job-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .post-job-header__left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .post-job-header__title {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .post-job-header__step {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    /* Layout */
+    .post-job-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Form sections */
+    .form-section {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-section + .form-section {
+      margin-top: 16px;
+    }
+
+    .form-section__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .form-section__icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(43, 92, 230, 0.08);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .form-section__title {
+      font-size: var(--font-size-base);
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .form-section__subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-top: 1px;
+    }
+
+    /* Form grid helpers */
+    .form-row {
+      display: grid;
+      gap: 16px;
+    }
+
+    .form-row--2 { grid-template-columns: 1fr 1fr; }
+    .form-row--3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* Checkbox group */
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checkbox-tag input[type="checkbox"] {
+      display: none;
+    }
+
+    .checkbox-tag label {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.18s;
+      user-select: none;
+    }
+
+    .checkbox-tag input:checked + label {
+      background: rgba(43, 92, 230, 0.08);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* Salary toggle */
+    .salary-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .toggle-switch__track {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--color-border);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle-switch input:checked ~ .toggle-switch__track {
+      background: var(--color-primary);
+    }
+
+    .toggle-switch__thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+      pointer-events: none;
+    }
+
+    .toggle-switch input:checked ~ .toggle-switch__thumb {
+      transform: translateX(18px);
+    }
+
+    .toggle-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    /* Salary inputs row */
+    .salary-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 140px;
+      gap: 12px;
+      align-items: end;
+    }
+
+    /* Radio pills */
+    .radio-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .radio-pill input[type="radio"] {
+      display: none;
+    }
+
+    .radio-pill label {
+      display: inline-flex;
+      padding: 7px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .radio-pill input:checked + label {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff;
+    }
+
+    /* Skills tag input area */
+    .skills-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      min-height: 52px;
+      background: var(--color-bg);
+      cursor: text;
+    }
+
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: rgba(43, 92, 230, 0.08);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    .skill-tag__remove {
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(43, 92, 230, 0.15);
+      cursor: pointer;
+      color: var(--color-primary);
+      font-size: 10px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .skills-area input {
+      border: none;
+      outline: none;
+      font-size: var(--font-size-sm);
+      color: var(--color-text);
+      background: transparent;
+      min-width: 120px;
+      font-family: inherit;
+    }
+
+    .skills-area input::placeholder {
+      color: var(--color-text-secondary);
+    }
+
+    /* Rich textarea buttons */
+    .editor-toolbar {
+      display: flex;
+      gap: 4px;
+      padding: 8px 10px;
+      border: 1px solid var(--color-border);
+      border-bottom: none;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: var(--color-bg-light);
+    }
+
+    .editor-toolbar__btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      font-weight: 700;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .editor-toolbar__btn:hover {
+      background: var(--color-border);
+      color: var(--color-text);
+    }
+
+    .editor-toolbar__sep {
+      width: 1px;
+      background: var(--color-border);
+      margin: 4px 2px;
+    }
+
+    .editor-textarea {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    /* Char counter */
+    .char-counter {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    /* Sidebar */
+    .post-job-sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 24px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .sidebar-card__title {
+      font-size: var(--font-size-sm);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 16px;
+    }
+
+    /* Preview card */
+    .preview-job-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      background: var(--color-bg-light);
+    }
+
+    .preview-job-card__logo {
+      width: 40px;
+      height: 40px;
+      background: #E8F0FE;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+
+    .preview-job-card__title {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 2px;
+    }
+
+    .preview-job-card__company {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .preview-job-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* Checklist */
+    .publish-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .checklist-item__icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .checklist-item__icon--done {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--color-success);
+    }
+
+    .checklist-item__icon--pending {
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .checklist-item--done {
+      color: var(--color-text);
+    }
+
+    /* Tips */
+    .tip-item {
+      display: flex;
+      gap: 10px;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .tip-item__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    /* Form actions bar */
+    .form-actions {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+
+    .form-actions__left {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-actions__right {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Hint text */
+    .form-hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+    }
+
+    /* required asterisk */
+    .form-label .req {
+      color: var(--color-error);
+      margin-left: 2px;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .breadcrumb a {
+      color: var(--color-text-secondary);
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover { color: var(--color-primary); }
+
+    .breadcrumb__sep { color: var(--color-border); }
+
+    .breadcrumb__current { color: var(--color-text); font-weight: 500; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .post-job-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .post-job-sidebar {
+        position: static;
+      }
+
+      .form-row--2,
+      .form-row--3 {
+        grid-template-columns: 1fr;
+      }
+
+      .salary-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .salary-row .form-group:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .post-job-page { padding: 24px 0 60px; }
+      .form-section { padding: 20px 16px; }
+      .salary-row { grid-template-columns: 1fr; }
+      .post-job-header__step { display: none; }
+    }
+  </style>
+</head>
+<body class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+
+        <!-- LOGO -->
+        <a href="index.html" class="header__logo">
+          <div class="header__logo-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="header__logo-text">WorkHard</span>
+        </a>
+
+        <!-- NAV -->
+        <nav class="header__nav">
+          <a href="jobs.html" class="header__nav-link">Вакансії</a>
+          <a href="company.html" class="header__nav-link">Компанії</a>
+        </nav>
+
+        <!-- ACTIONS -->
+        <div class="header__actions">
+          <!-- AI Credits -->
+          <div style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--color-border);border-radius:var(--radius-full);font-size:var(--font-size-xs);font-weight:600;color:var(--color-text);background:var(--color-bg);cursor:pointer;">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 1l1.76 3.56L14 5.18l-3 2.92.71 4.12L8 10.1l-3.71 2.12.71-4.12L2 5.18l4.24-.62L8 1z" fill="#F59E0B"/>
+            </svg>
+            12 AI Credits
+          </div>
+
+          <!-- Bell -->
+          <button class="header__user-btn" aria-label="Сповіщення" style="position:relative;">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 2a6 6 0 0 0-6 6v3l-1.5 2.5h15L16 11V8a6 6 0 0 0-6-6z" stroke="#1A1A2E" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M8.5 16.5a1.5 1.5 0 0 0 3 0" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="14" cy="4" r="2.5" fill="#EF4444"/>
+            </svg>
+          </button>
+
+          <!-- Avatar -->
+          <a href="profile.html" style="width:38px;height:38px;border-radius:var(--radius-full);background:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-xs);font-weight:700;color:#fff;text-decoration:none;flex-shrink:0;" aria-label="Профіль">
+            JD
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="post-job-page">
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="index.html">Головна</a>
+        <span class="breadcrumb__sep">/</span>
+        <a href="#">Для роботодавців</a>
+        <span class="breadcrumb__sep">/</span>
+        <span class="breadcrumb__current">Створення вакансії</span>
+      </nav>
+
+      <!-- Page title -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
+        <div>
+          <h1 class="section-title" style="font-size: var(--font-size-2xl);">Створення вакансії</h1>
+          <p class="section-subtitle" style="font-size: var(--font-size-sm); margin-top: 4px;">Заповніть форму — і ваша вакансія буде опублікована за лічені хвилини</p>
+        </div>
+        <a href="#" class="btn btn--outline btn--sm">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6L10 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+          </svg>
+          Зберегти чернетку
+        </a>
+      </div>
+
+      <!-- Layout -->
+      <div class="post-job-layout">
+
+        <!-- ── LEFT: FORM ── -->
+        <div>
+
+          <!-- 1. Загальна інформація -->
+          <div class="form-section">
+            <div class="form-section__header">
+              <div class="form-section__icon">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M6 7h8M6 10h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <p class="form-section__title">Загальна інформація</p>
+                <p class="form-section__subtitle">Основні дані про вакансію</p>
+              </div>
+            </div>
+
+            <!-- Job title -->
+            <div class="form-group">
+              <label class="form-label">Назва вакансії <span class="req">*</span></label>
+              <input type="text" class="form-input" placeholder="напр. Senior Frontend Developer">
+              <p class="form-hint">Чітка та конкретна назва — більше відгуків від відповідних кандидатів</p>
+            </div>
+
+            <!-- Company + Category -->
+            <div class="form-row form-row--2">
+              <div class="form-group">
+                <label class="form-label">Компанія <span class="req">*</span></label>
+                <select class="form-select">
+                  <option value="">Оберіть компанію</option>
+                  <option>Innovate Solutions</option>
+                  <option>TechCorp Ukraine</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Категорія <span class="req">*</span></label>
+                <select class="form-select">
+                  <option value="">Оберіть категорію</option>
+                  <option>IT / Розробка</option>
+                  <option>Дизайн / UX</option>
+                  <option>Маркетинг</option>
+                  <option>Продажі</option>
+                  <option>Фінанси / Бухгалтерія</option>
+                  <option>HR / Рекрутинг</option>
+                  <option>Юриспруденція</option>
+                  <option>Адміністрування</option>
+                  <option>Інше</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Location + Remote -->
+            <div class="form-row form-row--2">
+              <div class="form-group">
+                <label class="form-label">Місто <span class="req">*</span></label>
+                <select class="form-select">
+                  <option value="">Оберіть місто</option>
+                  <option>Київ</option>
+                  <option>Львів</option>
+                  <option>Харків</option>
+                  <option>Дніпро</option>
+                  <option>Одеса</option>
+                  <option>Запоріжжя</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Формат роботи <span class="req">*</span></label>
+                <select class="form-select">
+                  <option>Офіс</option>
+                  <option>Дистанційно</option>
+                  <option>Гібрид</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Employment type -->
+            <div class="form-group">
+              <label class="form-label">Тип зайнятості</label>
+              <div class="checkbox-group">
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="emp-full" name="emp" checked>
+                  <label for="emp-full">Повна зайнятість</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="emp-part" name="emp">
+                  <label for="emp-part">Часткова зайнятість</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="emp-contract" name="emp">
+                  <label for="emp-contract">Контракт / Проєкт</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="emp-intern" name="emp">
+                  <label for="emp-intern">Стажування</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="emp-freelance" name="emp">
+                  <label for="emp-freelance">Фріланс</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Experience -->
+            <div class="form-group">
+              <label class="form-label">Досвід роботи <span class="req">*</span></label>
+              <select class="form-select">
+                <option value="">Оберіть рівень</option>
+                <option>Без досвіду</option>
+                <option>До 1 року</option>
+                <option>1–3 роки</option>
+                <option>3–5 років</option>
+                <option>5+ років</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- 2. Зарплата -->
+          <div class="form-section" style="margin-top: 16px;">
+            <div class="form-section__header">
+              <div class="form-section__icon">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M10 6v8M8 8h3a1 1 0 0 1 0 2H9a1 1 0 0 0 0 2h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <p class="form-section__title">Зарплата</p>
+                <p class="form-section__subtitle">Вакансії з зарплатою отримують на 60% більше відгуків</p>
+              </div>
+            </div>
+
+            <div class="salary-toggle">
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-switch__track"></span>
+                <span class="toggle-switch__thumb"></span>
+              </label>
+              <span class="toggle-label">Вказати зарплату</span>
+            </div>
+
+            <div class="salary-row">
+              <div class="form-group">
+                <label class="form-label">Від</label>
+                <input type="number" class="form-input" placeholder="80 000">
+              </div>
+              <div class="form-group">
+                <label class="form-label">До</label>
+                <input type="number" class="form-input" placeholder="120 000">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Валюта</label>
+                <select class="form-select">
+                  <option>UAH</option>
+                  <option>USD</option>
+                  <option>EUR</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Тип оплати</label>
+              <div class="radio-group">
+                <div class="radio-pill">
+                  <input type="radio" id="pay-net" name="pay-type" checked>
+                  <label for="pay-net">На руки (нетто)</label>
+                </div>
+                <div class="radio-pill">
+                  <input type="radio" id="pay-gross" name="pay-type">
+                  <label for="pay-gross">До вирахування (брутто)</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 3. Опис вакансії -->
+          <div class="form-section" style="margin-top: 16px;">
+            <div class="form-section__header">
+              <div class="form-section__icon">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 4h12M4 8h12M4 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <p class="form-section__title">Опис вакансії</p>
+                <p class="form-section__subtitle">Розкажіть кандидатам про роль та компанію</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Загальний опис <span class="req">*</span></label>
+              <div class="editor-toolbar">
+                <button class="editor-toolbar__btn" title="Жирний"><b>B</b></button>
+                <button class="editor-toolbar__btn" title="Курсив"><i>I</i></button>
+                <button class="editor-toolbar__btn" title="Підкреслений"><u>U</u></button>
+                <span class="editor-toolbar__sep"></span>
+                <button class="editor-toolbar__btn" title="Список">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 4h8M6 8h8M6 12h8M2 4h1M2 8h1M2 12h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <button class="editor-toolbar__btn" title="Нумерований список">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M7 4h8M7 8h8M7 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M2 3v3M2 3c0 0 .5 0 1 0M3 11H2v1h1v1H2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <textarea class="form-textarea editor-textarea" rows="6" placeholder="Опишіть роль, завдання та очікування від кандидата..."></textarea>
+              <p class="char-counter">0 / 5000</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Вимоги <span class="req">*</span></label>
+              <div class="editor-toolbar">
+                <button class="editor-toolbar__btn" title="Жирний"><b>B</b></button>
+                <button class="editor-toolbar__btn" title="Курсив"><i>I</i></button>
+                <span class="editor-toolbar__sep"></span>
+                <button class="editor-toolbar__btn" title="Список">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 4h8M6 8h8M6 12h8M2 4h1M2 8h1M2 12h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+              <textarea class="form-textarea editor-textarea" rows="5" placeholder="— Досвід від 3 років&#10;— Знання React / TypeScript&#10;— Англійська Upper-Intermediate+"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Обов'язки</label>
+              <div class="editor-toolbar">
+                <button class="editor-toolbar__btn" title="Жирний"><b>B</b></button>
+                <button class="editor-toolbar__btn" title="Курсив"><i>I</i></button>
+                <span class="editor-toolbar__sep"></span>
+                <button class="editor-toolbar__btn" title="Список">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 4h8M6 8h8M6 12h8M2 4h1M2 8h1M2 12h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+              <textarea class="form-textarea editor-textarea" rows="5" placeholder="— Розробка нових фічей&#10;— Code review&#10;— Взаємодія з командою дизайнерів"></textarea>
+            </div>
+
+          </div>
+
+          <!-- 4. Умови та переваги -->
+          <div class="form-section" style="margin-top: 16px;">
+            <div class="form-section__header">
+              <div class="form-section__icon">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 3l2.06 4.17L17 8l-3.5 3.41L14.12 17 10 14.77 5.88 17l.62-5.59L3 8l4.94-.83L10 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <p class="form-section__title">Умови та переваги</p>
+                <p class="form-section__subtitle">Що ви пропонуєте кандидатам</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Переваги компанії</label>
+              <div class="checkbox-group">
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="ben-medical" name="ben" checked>
+                  <label for="ben-medical">Медичне страхування</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="ben-sport" name="ben" checked>
+                  <label for="ben-sport">Оплата спорту</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="ben-remote" name="ben">
+                  <label for="ben-remote">Гнучкий графік</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="ben-vacation" name="ben">
+                  <label for="ben-vacation">Додаткова відпустка</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="ben-edu" name="ben">
+                  <label for="ben-edu">Навчання / Курси</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="ben-tech" name="ben">
+                  <label for="ben-tech">Техніка від компанії</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="ben-bonus" name="ben">
+                  <label for="ben-bonus">Бонуси / KPI</label>
+                </div>
+                <div class="checkbox-tag">
+                  <input type="checkbox" id="ben-food" name="ben">
+                  <label for="ben-food">Безкоштовне харчування</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Додаткові умови</label>
+              <textarea class="form-textarea" rows="3" placeholder="Опишіть будь-які додаткові умови або переваги..."></textarea>
+            </div>
+
+          </div>
+
+          <!-- 5. Навички та теги -->
+          <div class="form-section" style="margin-top: 16px;">
+            <div class="form-section__header">
+              <div class="form-section__icon">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 10h5M10 3v5M17 10h-5M10 17v-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div>
+                <p class="form-section__title">Навички та технології</p>
+                <p class="form-section__subtitle">Допомагають кандидатам знайти вашу вакансію</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Ключові навички</label>
+              <div class="skills-area">
+                <span class="skill-tag">React <span class="skill-tag__remove">×</span></span>
+                <span class="skill-tag">TypeScript <span class="skill-tag__remove">×</span></span>
+                <span class="skill-tag">Node.js <span class="skill-tag__remove">×</span></span>
+                <span class="skill-tag">REST API <span class="skill-tag__remove">×</span></span>
+                <input type="text" placeholder="Додати навичку...">
+              </div>
+              <p class="form-hint">Введіть назву навички та натисніть Enter. Рекомендовано 5–10 навичок.</p>
+            </div>
+
+          </div>
+
+          <!-- 6. Контакт / Відгук -->
+          <div class="form-section" style="margin-top: 16px;">
+            <div class="form-section__header">
+              <div class="form-section__icon">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M2 5l8 6 8-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <p class="form-section__title">Контакт для відгуків</p>
+                <p class="form-section__subtitle">Як кандидати можуть відгукнутись</p>
+              </div>
+            </div>
+
+            <div class="form-row form-row--2">
+              <div class="form-group">
+                <label class="form-label">Контактна особа <span class="req">*</span></label>
+                <input type="text" class="form-input" placeholder="Ім'я HR-менеджера">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email для відгуків <span class="req">*</span></label>
+                <input type="email" class="form-input" placeholder="hr@company.ua">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Спосіб відгуку</label>
+              <div class="radio-group">
+                <div class="radio-pill">
+                  <input type="radio" id="apply-platform" name="apply-type" checked>
+                  <label for="apply-platform">Через платформу</label>
+                </div>
+                <div class="radio-pill">
+                  <input type="radio" id="apply-email" name="apply-type">
+                  <label for="apply-email">На пошту</label>
+                </div>
+                <div class="radio-pill">
+                  <input type="radio" id="apply-link" name="apply-type">
+                  <label for="apply-link">Зовнішнє посилання</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Actions -->
+          <div class="form-actions">
+            <div class="form-actions__left">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="display:inline;vertical-align:middle;margin-right:4px;">
+                <circle cx="8" cy="8" r="6" stroke="#6B7280" stroke-width="1.5"/>
+                <path d="M8 7v4M8 5.5v.5" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Поля зі <span style="color:var(--color-error);">*</span> обов'язкові
+            </div>
+            <div class="form-actions__right">
+              <a href="#" class="btn btn--outline">Скасувати</a>
+              <button class="btn btn--outline">Зберегти чернетку</button>
+              <button class="btn btn--primary">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 8l4 4 8-8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Опублікувати вакансію
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── RIGHT: SIDEBAR ── -->
+        <aside class="post-job-sidebar">
+
+          <!-- Preview card -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__title">Попередній перегляд</p>
+            <div class="preview-job-card">
+              <div class="preview-job-card__logo">IS</div>
+              <p class="preview-job-card__title">Senior Frontend Developer</p>
+              <p class="preview-job-card__company">Innovate Solutions · Київ</p>
+              <div class="preview-job-card__tags">
+                <span class="badge badge--neutral">Повна зайнятість</span>
+                <span class="badge badge--neutral">Дистанційно</span>
+                <span class="badge badge--primary">80 000 – 120 000 ₴</span>
+              </div>
+            </div>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); margin-top: 12px; text-align:center;">Так виглядатиме ваша вакансія в каталозі</p>
+          </div>
+
+          <!-- Checklist -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__title">Готовність до публікації</p>
+            <div class="publish-checklist">
+              <div class="checklist-item checklist-item--done">
+                <div class="checklist-item__icon checklist-item__icon--done">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                Назва вакансії
+              </div>
+              <div class="checklist-item checklist-item--done">
+                <div class="checklist-item__icon checklist-item__icon--done">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                Компанія та місто
+              </div>
+              <div class="checklist-item">
+                <div class="checklist-item__icon checklist-item__icon--pending">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="3" stroke="currentColor" stroke-width="1.2"/>
+                  </svg>
+                </div>
+                Зарплата (рекомендовано)
+              </div>
+              <div class="checklist-item">
+                <div class="checklist-item__icon checklist-item__icon--pending">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="3" stroke="currentColor" stroke-width="1.2"/>
+                  </svg>
+                </div>
+                Опис вакансії
+              </div>
+              <div class="checklist-item">
+                <div class="checklist-item__icon checklist-item__icon--pending">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="3" stroke="currentColor" stroke-width="1.2"/>
+                  </svg>
+                </div>
+                Вимоги до кандидата
+              </div>
+              <div class="checklist-item">
+                <div class="checklist-item__icon checklist-item__icon--pending">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="3" stroke="currentColor" stroke-width="1.2"/>
+                  </svg>
+                </div>
+                Контактні дані
+              </div>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div class="sidebar-card">
+            <p class="sidebar-card__title">Поради для кращого результату</p>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div class="tip-item">
+                <div class="tip-item__dot"></div>
+                <span>Вакансії із зарплатою отримують на <strong>60%</strong> більше відгуків</span>
+              </div>
+              <div class="tip-item">
+                <div class="tip-item__dot"></div>
+                <span>Конкретна назва посади підвищує релевантність пошуку</span>
+              </div>
+              <div class="tip-item">
+                <div class="tip-item__dot"></div>
+                <span>Детальний опис обов'язків знижує кількість нерелевантних відгуків</span>
+              </div>
+              <div class="tip-item">
+                <div class="tip-item__dot"></div>
+                <span>Вкажіть переваги компанії — це ваша конкурентна перевага</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tariff info -->
+          <div class="sidebar-card" style="background: rgba(43,92,230,0.04); border-color: rgba(43,92,230,0.15);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 2l1.76 3.56L14 6.18l-3 2.92.71 4.12L8 11.1l-3.71 2.12.71-4.12L2 6.18l4.24-.62L8 2z" fill="#2B5CE6" opacity="0.8"/>
+              </svg>
+              <p style="font-size: var(--font-size-sm); font-weight: 700; color: var(--color-primary);">Безкоштовна публікація</p>
+            </div>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); line-height: 1.6;">Ви використовуєте безкоштовний тариф. Вакансія буде активна 30 днів. Для підвищення в пошуку розгляньте PRO-тариф.</p>
+            <a href="#" class="btn btn--outline btn--sm" style="margin-top: 12px; width: 100%; justify-content: center; font-size: var(--font-size-xs);">Переглянути тарифи</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+
+        <div>
+          <a href="index.html" class="footer__brand">
+            <div class="header__logo-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+                <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+              </svg>
+            </div>
+            JobUA
+          </a>
+          <p class="footer__desc">Платформа для пошуку роботи, де цінують ваш час та професіоналізм.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Twitter / X">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Платформа</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Про нас</a></li>
+            <li><a href="#" class="footer__link">Блог</a></li>
+            <li><a href="#" class="footer__link">Контакти</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Роботодавцям</p>
+          <ul class="footer__links">
+            <li><a href="post-job.html" class="footer__link">Розмістити вакансію</a></li>
+            <li><a href="#" class="footer__link">Тарифи</a></li>
+            <li><a href="#" class="footer__link">Успішні кейси</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Legal</p>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Політика конфіденційності</a></li>
+            <li><a href="#" class="footer__link">Умови використання</a></li>
+            <li><a href="#" class="footer__link">Безпека та верифікація</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2025 JobUA. Всі права захищені.</span>
+        <span>Made in Ukraine &#127482;&#127462;</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

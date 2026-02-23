@@ -1,10 +1,249 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JobUA — Підписка на вакансії</title>
+  <title>WorkHard — Підписки на вакансії</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Subscription card ── */
+    .sub-card {
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: box-shadow 0.2s;
+    }
+
+    .sub-card:hover { box-shadow: 0 4px 16px rgba(10,12,28,0.07); }
+
+    .sub-card--paused {
+      opacity: 0.72;
+      background: var(--color-bg-light);
+    }
+
+    .sub-card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .sub-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: rgba(43,92,230,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-primary);
+    }
+
+    .sub-card__icon--paused {
+      background: rgba(107,114,128,0.10);
+      color: var(--color-text-secondary);
+    }
+
+    .sub-card__title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .sub-card__name {
+      font-size: var(--font-size-base);
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .sub-card__status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .sub-card__status--active {
+      background: rgba(22,163,74,0.10);
+      color: #16A34A;
+    }
+
+    .sub-card__status--paused {
+      background: rgba(107,114,128,0.10);
+      color: var(--color-text-secondary);
+    }
+
+    .sub-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .sub-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 11px;
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      white-space: nowrap;
+    }
+
+    .sub-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-border);
+      flex-wrap: wrap;
+    }
+
+    .sub-card__freq {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .sub-card__actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-sub-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      border: 1.5px solid var(--color-border);
+      background: transparent;
+      color: var(--color-text-secondary);
+    }
+
+    .btn-sub-toggle:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: rgba(43,92,230,0.05);
+    }
+
+    .btn-sub-toggle--pause:hover {
+      border-color: #F59E0B;
+      color: #D97706;
+      background: rgba(245,158,11,0.05);
+    }
+
+    .btn-sub-delete {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      border: 1.5px solid var(--color-border);
+      background: transparent;
+      color: var(--color-text-secondary);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-sub-delete:hover {
+      border-color: var(--color-error);
+      color: var(--color-error);
+      background: rgba(239,68,68,0.05);
+    }
+
+    /* Create form */
+    .sub-form {
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .sub-form__title {
+      font-size: var(--font-size-md);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 20px;
+    }
+
+    .sub-form__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .sub-form__group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sub-form__group--full {
+      grid-column: 1 / -1;
+    }
+
+    .sub-form__label {
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .sub-form__input,
+    .sub-form__select {
+      height: 44px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 0 14px;
+      font-size: var(--font-size-sm);
+      color: var(--color-text);
+      background: var(--color-bg);
+      transition: border-color 0.2s;
+      outline: none;
+      width: 100%;
+    }
+
+    .sub-form__input:focus,
+    .sub-form__select:focus {
+      border-color: var(--color-primary);
+    }
+
+    .sub-form__input::placeholder { color: var(--color-text-secondary); opacity: 0.7; }
+
+    .sub-form__footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body class="page-wrapper">
 
@@ -13,16 +252,30 @@
     <div class="container">
       <div class="header__inner">
         <a href="index.html" class="header__logo">
-          <div class="header__logo-icon">J</div>
-          JobUA
+          <div class="header__logo-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="header__logo-text">WorkHard</span>
         </a>
         <nav class="header__nav">
-          <a href="jobs.html" class="header__nav-link">Вакансії</a>
-          <a href="#" class="header__nav-link">Компанії</a>
-          <a href="#" class="header__nav-link">Зарплати</a>
+          <a href="jobs.html" class="header__nav-link">Пошук вакансій</a>
+          <a href="company.html" class="header__nav-link">Компанії</a>
+          <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
+          <a href="for-employers.html" class="header__nav-link">Для роботодавців</a>
+          <a href="about.html" class="header__nav-link">Про нас</a>
         </nav>
         <div class="header__actions">
-          <a href="profile.html" class="btn btn--primary btn--sm">Мій профіль</a>
+          <a href="profile.html" class="header__user-btn" aria-label="Профіль">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="7" r="3.5" stroke="#1A1A2E" stroke-width="1.5"/>
+              <path d="M3 17c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
           <button class="mobile-menu-btn" aria-label="Меню">
             <span></span><span></span><span></span>
           </button>
@@ -31,88 +284,280 @@
     </div>
   </header>
 
-  <main>
-    <div style="padding: var(--spacing-2xl) 0;">
-      <div class="container">
-        <div class="layout-with-sidebar">
+  <main class="profile-layout">
+    <div class="container">
+      <div class="layout-with-sidebar">
 
-          <!-- SIDEBAR NAV -->
-          <aside>
-            <div class="placeholder-box" style="min-height: 120px; flex-direction: column; gap: 8px; margin-bottom: var(--spacing-lg);">
-              <span style="font-weight: 700;">АВАТАР + ІМ'Я</span>
-              <span>Фото · Ім'я прізвище<br>Email</span>
+        <!-- SIDEBAR -->
+        <aside>
+          <div class="profile-sidebar">
+            <div class="profile-sidebar__user">
+              <div class="profile-sidebar__avatar">СШ</div>
+              <div>
+                <div class="profile-sidebar__name">Софія Шевчук</div>
+                <span class="profile-sidebar__badge">2 активні підписки</span>
+              </div>
             </div>
             <nav class="profile-nav">
-              <a href="profile.html" class="profile-nav__item">
-                <span>👤</span> Профіль
-              </a>
               <a href="my-resumes.html" class="profile-nav__item">
-                <span>📄</span> Мої резюме
+                <span>Мої резюме</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
               <a href="my-applications.html" class="profile-nav__item">
-                <span>📬</span> Мої відгуки
+                <span>Мої відгуки</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
               <a href="saved-jobs.html" class="profile-nav__item">
-                <span>🔖</span> Збережені вакансії
+                <span>Обрані вакансії</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="blocked-employers.html" class="profile-nav__item">
+                <span>Заблоковані роботодавці</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
               <a href="job-subscription.html" class="profile-nav__item active">
-                <span>🔔</span> Підписки
+                <span>Підписки на вакансії</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="other.html" class="profile-nav__item">
+                <span>Інше</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <div class="profile-nav__divider"></div>
+              <a href="#" class="profile-nav__item profile-nav__item--danger">
+                <span>Вийти з акаунту</span>
+                <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
             </nav>
-          </aside>
+          </div>
+        </aside>
 
-          <!-- CONTENT -->
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-lg);">
+        <!-- CONTENT -->
+        <div>
 
-            <h1 class="section-title">Підписка на вакансії</h1>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              Отримуйте підбірки нових вакансій прямо на пошту. Налаштуйте критерії — і ми надішлемо тільки те, що вас цікавить.
-            </p>
+          <div class="profile-content__header">
+            <h1 class="profile-content__title">Підписки на вакансії</h1>
+            <button class="btn btn--dark btn--md" onclick="document.getElementById('create-form').scrollIntoView({behavior:'smooth'})" style="display:inline-flex;align-items:center;gap:6px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Нова підписка
+            </button>
+          </div>
 
-            <!-- Existing subscriptions -->
-            <div>
-              <h2 style="font-size: var(--font-size-md); font-weight: 600; margin-bottom: var(--spacing-md);">Активні підписки</h2>
-              <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+          <!-- Subscription cards -->
+          <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:32px;">
 
-                <div class="placeholder-box" style="min-height: 120px; flex-direction: column; gap: 8px;">
-                  <span style="font-weight: 700;">ПІДПИСКА #1</span>
-                  <span>Критерії: UI/UX Designer · Kyiv · Remote<br>Зарплата: від 1500$<br>Частота: Щодня<br>Кнопки: Редагувати · Вимкнути · Видалити</span>
+            <!-- Card 1 — Active -->
+            <div class="sub-card">
+              <div class="sub-card__header">
+                <div style="display:flex;align-items:flex-start;gap:14px;flex:1;">
+                  <div class="sub-card__icon">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2a6 6 0 0 0-6 6v3l-1.5 2.5h15L16 11V8a6 6 0 0 0-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 16.5a1.5 1.5 0 0 0 3 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  </div>
+                  <div style="flex:1;">
+                    <div class="sub-card__title-row">
+                      <span class="sub-card__name">Product / UX Designer</span>
+                      <span class="sub-card__status sub-card__status--active">
+                        <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#16A34A"/></svg>
+                        Активна
+                      </span>
+                    </div>
+                    <div style="font-size:var(--font-size-xs);color:var(--color-text-secondary);margin-top:3px;">
+                      На пошту: <strong>s.shevchuk@gmail.com</strong>
+                    </div>
+                  </div>
                 </div>
-
-                <div class="placeholder-box" style="min-height: 120px; flex-direction: column; gap: 8px;">
-                  <span style="font-weight: 700;">ПІДПИСКА #2 (вимкнена)</span>
-                  <span>Критерії: Product Designer · Будь-яке місто<br>Статус: вимкнена<br>Кнопки: Увімкнути · Видалити</span>
+              </div>
+              <div class="sub-card__tags">
+                <span class="sub-tag">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1A3.5 3.5 0 0 1 9.5 4.5c0 2.5-3.5 6.5-3.5 6.5S2.5 7 2.5 4.5A3.5 3.5 0 0 1 6 1z" stroke="currentColor" stroke-width="1.1"/><circle cx="6" cy="4.5" r="1" stroke="currentColor" stroke-width="1.1"/></svg>
+                  Київ · Дистанційно
+                </span>
+                <span class="sub-tag">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><rect x="1" y="2.5" width="10" height="7.5" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M1 5.5h10" stroke="currentColor" stroke-width="1.1"/></svg>
+                  від $2 500 / міс
+                </span>
+                <span class="sub-tag">Senior · Middle</span>
+                <span class="sub-tag">Повна зайнятість</span>
+                <span class="sub-tag">Figma · Prototyping</span>
+              </div>
+              <div class="sub-card__footer">
+                <div class="sub-card__freq">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Щодня · остання підбірка <strong>сьогодні, 09:00</strong>
                 </div>
-
+                <div class="sub-card__actions">
+                  <button class="btn-sub-toggle btn-sub-toggle--pause">
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="2" width="3" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3" height="10" rx="1" fill="currentColor"/></svg>
+                    Призупинити
+                  </button>
+                  <button class="btn-sub-delete">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    Видалити
+                  </button>
+                </div>
               </div>
             </div>
 
-            <!-- Create new subscription form -->
-            <div class="placeholder-box" style="min-height: 480px; flex-direction: column; gap: 8px;">
-              <span style="font-weight: 700;">ФОРМА НОВОЇ ПІДПИСКИ</span>
-              <span>
-                Ключові слова / посада<br>
-                Категорія<br>
-                Місто / регіон<br>
-                Тип зайнятості (full-time / part-time / freelance)<br>
-                Формат роботи (офіс / remote / hybrid)<br>
-                Рівень досвіду<br>
-                Зарплата від<br>
-                Email для надсилання<br>
-                Частота: Щодня / Щотижня / Миттєво<br>
-                <br>
-                Кнопка "Створити підписку"
-              </span>
+            <!-- Card 2 — Active -->
+            <div class="sub-card">
+              <div class="sub-card__header">
+                <div style="display:flex;align-items:flex-start;gap:14px;flex:1;">
+                  <div class="sub-card__icon">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2a6 6 0 0 0-6 6v3l-1.5 2.5h15L16 11V8a6 6 0 0 0-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 16.5a1.5 1.5 0 0 0 3 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  </div>
+                  <div style="flex:1;">
+                    <div class="sub-card__title-row">
+                      <span class="sub-card__name">UI Designer (Mobile)</span>
+                      <span class="sub-card__status sub-card__status--active">
+                        <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#16A34A"/></svg>
+                        Активна
+                      </span>
+                    </div>
+                    <div style="font-size:var(--font-size-xs);color:var(--color-text-secondary);margin-top:3px;">
+                      На пошту: <strong>s.shevchuk@gmail.com</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sub-card__tags">
+                <span class="sub-tag">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1A3.5 3.5 0 0 1 9.5 4.5c0 2.5-3.5 6.5-3.5 6.5S2.5 7 2.5 4.5A3.5 3.5 0 0 1 6 1z" stroke="currentColor" stroke-width="1.1"/><circle cx="6" cy="4.5" r="1" stroke="currentColor" stroke-width="1.1"/></svg>
+                  Будь-яке місто
+                </span>
+                <span class="sub-tag">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><rect x="1" y="2.5" width="10" height="7.5" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M1 5.5h10" stroke="currentColor" stroke-width="1.1"/></svg>
+                  від $3 000 / міс
+                </span>
+                <span class="sub-tag">Дистанційно</span>
+                <span class="sub-tag">iOS · Android</span>
+              </div>
+              <div class="sub-card__footer">
+                <div class="sub-card__freq">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Щотижня · остання підбірка <strong>19 лют 2026</strong>
+                </div>
+                <div class="sub-card__actions">
+                  <button class="btn-sub-toggle btn-sub-toggle--pause">
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="2" width="3" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3" height="10" rx="1" fill="currentColor"/></svg>
+                    Призупинити
+                  </button>
+                  <button class="btn-sub-delete">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    Видалити
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <!-- Empty state -->
-            <div class="placeholder-box" style="min-height: 160px; flex-direction: column; gap: 12px; border-style: solid;">
-              <span style="font-size: 32px;">🔔</span>
-              <span style="font-weight: 700;">ПОРОЖНІЙ СТАН</span>
-              <span>У вас ще немає підписок<br>Заповніть форму вище щоб створити першу</span>
+            <!-- Card 3 — Paused -->
+            <div class="sub-card sub-card--paused">
+              <div class="sub-card__header">
+                <div style="display:flex;align-items:flex-start;gap:14px;flex:1;">
+                  <div class="sub-card__icon sub-card__icon--paused">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2a6 6 0 0 0-6 6v3l-1.5 2.5h15L16 11V8a6 6 0 0 0-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 16.5a1.5 1.5 0 0 0 3 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  </div>
+                  <div style="flex:1;">
+                    <div class="sub-card__title-row">
+                      <span class="sub-card__name">Head of Design</span>
+                      <span class="sub-card__status sub-card__status--paused">
+                        <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#9CA3AF"/></svg>
+                        Призупинена
+                      </span>
+                    </div>
+                    <div style="font-size:var(--font-size-xs);color:var(--color-text-secondary);margin-top:3px;">
+                      На пошту: <strong>s.shevchuk@gmail.com</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sub-card__tags">
+                <span class="sub-tag">Київ</span>
+                <span class="sub-tag">від $5 000 / міс</span>
+                <span class="sub-tag">Гібрид</span>
+                <span class="sub-tag">5+ років досвіду</span>
+              </div>
+              <div class="sub-card__footer">
+                <div class="sub-card__freq">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Щодня · призупинено 10 лют 2026
+                </div>
+                <div class="sub-card__actions">
+                  <button class="btn-sub-toggle">
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><polygon points="3,2 12,7 3,12" fill="currentColor"/></svg>
+                    Відновити
+                  </button>
+                  <button class="btn-sub-delete">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    Видалити
+                  </button>
+                </div>
+              </div>
             </div>
 
           </div>
+
+          <!-- Create new subscription form -->
+          <div class="sub-form" id="create-form">
+            <div class="sub-form__title">Нова підписка</div>
+            <div class="sub-form__grid">
+              <div class="sub-form__group sub-form__group--full">
+                <label class="sub-form__label">Посада / ключові слова</label>
+                <input class="sub-form__input" type="text" placeholder="наприклад: Product Designer, UX Lead…">
+              </div>
+              <div class="sub-form__group">
+                <label class="sub-form__label">Місто</label>
+                <select class="sub-form__select">
+                  <option value="">Будь-яке місто</option>
+                  <option>Київ</option>
+                  <option>Львів</option>
+                  <option>Харків</option>
+                  <option>Дистанційно</option>
+                </select>
+              </div>
+              <div class="sub-form__group">
+                <label class="sub-form__label">Формат роботи</label>
+                <select class="sub-form__select">
+                  <option value="">Будь-який</option>
+                  <option>Офіс</option>
+                  <option>Дистанційно</option>
+                  <option>Гібрид</option>
+                </select>
+              </div>
+              <div class="sub-form__group">
+                <label class="sub-form__label">Рівень</label>
+                <select class="sub-form__select">
+                  <option value="">Будь-який</option>
+                  <option>Junior</option>
+                  <option>Middle</option>
+                  <option>Senior</option>
+                  <option>Lead / Head</option>
+                </select>
+              </div>
+              <div class="sub-form__group">
+                <label class="sub-form__label">Зарплата від, $</label>
+                <input class="sub-form__input" type="number" placeholder="наприклад: 2000">
+              </div>
+              <div class="sub-form__group">
+                <label class="sub-form__label">Email для розсилки</label>
+                <input class="sub-form__input" type="email" placeholder="your@email.com">
+              </div>
+              <div class="sub-form__group">
+                <label class="sub-form__label">Частота</label>
+                <select class="sub-form__select">
+                  <option>Щодня</option>
+                  <option>Щотижня</option>
+                  <option>Миттєво</option>
+                </select>
+              </div>
+            </div>
+            <div class="sub-form__footer">
+              <button class="btn btn--primary btn--md" style="display:inline-flex;align-items:center;gap:7px;">
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2a6 6 0 0 0-6 6v3l-1.5 2.5h15L16 11V8a6 6 0 0 0-6-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 16.5a1.5 1.5 0 0 0 3 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                Створити підписку
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -122,12 +567,10 @@
   <footer class="footer">
     <div class="container">
       <div class="footer__inner">
-
-        <!-- Brand -->
         <div>
           <a href="index.html" class="footer__brand">
             <div class="header__logo-icon">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
                 <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
                 <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
@@ -138,27 +581,11 @@
           </a>
           <p class="footer__desc">Платформа для пошуку роботи, де цінують ваш час та професіоналізм.</p>
           <div class="footer__social">
-            <a href="#" class="footer__social-link" aria-label="LinkedIn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            </a>
-            <a href="#" class="footer__social-link" aria-label="Twitter / X">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-            <a href="#" class="footer__social-link" aria-label="Facebook">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-              </svg>
-            </a>
+            <a href="#" class="footer__social-link" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Twitter / X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
           </div>
         </div>
-
-        <!-- Платформа -->
         <div>
           <p class="footer__col-title">Платформа</p>
           <ul class="footer__links">
@@ -167,8 +594,6 @@
             <li><a href="#" class="footer__link">Контакти</a></li>
           </ul>
         </div>
-
-        <!-- Роботодавцям -->
         <div>
           <p class="footer__col-title">Роботодавцям</p>
           <ul class="footer__links">
@@ -177,8 +602,6 @@
             <li><a href="#" class="footer__link">Успішні кейси</a></li>
           </ul>
         </div>
-
-        <!-- Legal -->
         <div>
           <p class="footer__col-title">Legal</p>
           <ul class="footer__links">
@@ -187,14 +610,14 @@
             <li><a href="#" class="footer__link">Безпека та верифікація</a></li>
           </ul>
         </div>
-
       </div>
       <div class="footer__bottom">
-        <span>&copy; 2025 JobUA. Всі права захищені.</span>
+        <span>&copy; 2025 WorkHard. Всі права захищені.</span>
         <span>Made in Ukraine &#127482;&#127462;</span>
       </div>
     </div>
   </footer>
 
+  <script src="profile-init.js"></script>
 </body>
 </html>

@@ -5,6 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WorkHard — Мої резюме</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Resume modal ── */
+    .resume-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,12,28,0.45);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .resume-modal-overlay--open { display: flex; }
+
+    .resume-modal {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 64px rgba(10,12,28,0.18);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .resume-modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .resume-modal__title {
+      font-size: var(--font-size-sm);
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .resume-modal__close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--color-border);
+      background: none;
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+    .resume-modal__close:hover { background: var(--color-bg-light); color: var(--color-text); }
+
+    /* resume-doc styles (copied from builder) */
+    .resume-doc { padding: 28px 32px; font-family: 'Inter', sans-serif; }
+    .resume-doc__top { padding-bottom: 16px; border-bottom: 2px solid var(--color-primary); margin-bottom: 4px; }
+    .resume-doc__name { font-size: 22px; font-weight: 700; color: var(--color-text); margin-bottom: 3px; line-height: 1.2; }
+    .resume-doc__pos { font-size: 14px; font-weight: 600; color: var(--color-primary); margin-bottom: 8px; }
+    .resume-doc__industry { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px; }
+    .resume-doc__contacts { display: flex; flex-wrap: wrap; gap: 12px; }
+    .resume-doc__contact { font-size: 12px; color: var(--color-text-secondary); display: flex; align-items: center; gap: 4px; }
+    .resume-doc__section { margin-top: 16px; }
+    .resume-doc__section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: 10px; }
+    .resume-doc__summary { font-size: 13px; color: var(--color-text); line-height: 1.65; }
+    .resume-doc__exp-item { margin-bottom: 12px; }
+    .resume-doc__exp-header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 2px; }
+    .resume-doc__exp-role { font-size: 13px; font-weight: 600; color: var(--color-text); }
+    .resume-doc__exp-dates { font-size: 11px; color: var(--color-text-secondary); white-space: nowrap; flex-shrink: 0; }
+    .resume-doc__exp-company { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+    .resume-doc__exp-desc { font-size: 12px; color: var(--color-text); line-height: 1.6; }
+    .resume-doc__divider { height: 1px; background: var(--color-border); margin: 12px 0; }
+    .resume-doc__skills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .resume-doc__skill { padding: 4px 10px; background: rgba(43,92,230,0.08); border-radius: 99px; font-size: 11px; color: var(--color-primary); font-weight: 600; }
+    .resume-doc__portfolio { font-size: 12px; color: var(--color-primary); text-decoration: underline; word-break: break-all; }
+
+    .resume-card { cursor: pointer; transition: box-shadow 0.2s; }
+    .resume-card:hover { box-shadow: 0 4px 20px rgba(43,92,230,0.10); }
+  </style>
 </head>
 <body class="page-wrapper">
 
@@ -27,8 +113,8 @@
           <a href="jobs.html" class="header__nav-link">Пошук вакансій</a>
           <a href="company.html" class="header__nav-link">Компанії</a>
           <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
-          <a href="#" class="header__nav-link">Для роботодавців</a>
-          <a href="#" class="header__nav-link">Про нас</a>
+          <a href="for-employers.html" class="header__nav-link">Для роботодавців</a>
+          <a href="about.html" class="header__nav-link">Про нас</a>
         </nav>
         <div class="header__actions">
           <a href="profile.html" class="header__user-btn" aria-label="Профіль">
@@ -76,7 +162,7 @@
                 <span>Обрані вакансії</span>
                 <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
-              <a href="#" class="profile-nav__item">
+              <a href="blocked-employers.html" class="profile-nav__item">
                 <span>Заблоковані роботодавці</span>
                 <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
@@ -84,7 +170,7 @@
                 <span>Підписки на вакансії</span>
                 <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
-              <a href="#" class="profile-nav__item">
+              <a href="other.html" class="profile-nav__item">
                 <span>Інше</span>
                 <svg class="profile-nav__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
@@ -226,6 +312,20 @@
     </div>
   </footer>
 
+  <!-- Resume modal -->
+  <div class="resume-modal-overlay" id="resumeModal" onclick="closeModal(event)">
+    <div class="resume-modal">
+      <div class="resume-modal__header">
+        <span class="resume-modal__title">Моє резюме</span>
+        <button class="resume-modal__close" onclick="closeModalBtn()">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="resume-doc" id="modalResumeDoc"></div>
+    </div>
+  </div>
+
+  <script src="profile-init.js"></script>
   <script>
     var empty  = document.getElementById('state-empty');
     var filled = document.getElementById('state-filled');
@@ -234,6 +334,82 @@
     var hasResume = localStorage.getItem('workhard_has_resume');
     empty.style.display  = hasResume ? 'none'  : 'flex';
     filled.style.display = hasResume ? 'block' : 'none';
+
+    // Fill in saved data
+    var resumeData = null;
+    if (hasResume) {
+      try { resumeData = JSON.parse(localStorage.getItem('workhard_resume_data')); } catch(e) {}
+      if (resumeData) {
+        if (resumeData.position) document.querySelector('.resume-card__title').textContent = resumeData.position;
+        var fullName = [resumeData.firstname, resumeData.lastname].filter(Boolean).join(' ');
+        if (fullName) document.querySelector('.resume-card__sub').textContent = fullName;
+      }
+    }
+
+    // Click on card → open modal
+    document.getElementById('state-filled').addEventListener('click', function(e) {
+      if (e.target.closest('button') || e.target.closest('a')) return;
+      openModal();
+    });
+
+    function formatMonth(ym) {
+      if (!ym) return '';
+      var parts = ym.split('-'), y = parts[0], m = parseInt(parts[1], 10);
+      var names = ['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру'];
+      return names[m - 1] + ' ' + y;
+    }
+
+    function openModal() {
+      if (!resumeData) return;
+      var d = resumeData;
+      var fullName = [d.firstname, d.lastname].filter(Boolean).join(' ');
+      var industryLine = '';
+      if (d.years)    industryLine += d.years + ' ' + (parseInt(d.years) === 1 ? 'рік' : parseInt(d.years) < 5 ? 'роки' : 'років') + ' досвіду';
+      if (d.industry) industryLine += (industryLine ? ' · ' : '') + d.industry;
+
+      var contactsHTML = '';
+      if (d.email) contactsHTML += '<span class="resume-doc__contact"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><rect x="1" y="2" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M1 3l5 3.5 5-3.5" stroke="currentColor" stroke-width="1.2"/></svg>' + d.email + '</span>';
+      if (d.phone) contactsHTML += '<span class="resume-doc__contact"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2h2.5l1 2.5-1.5 1a6 6 0 0 0 3 3l1-1.5 2.5 1V10a1 1 0 0 1-1 1A9 9 0 0 1 1 3a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.1"/></svg>' + d.phone + '</span>';
+
+      var exp1HTML = '';
+      if (d.exp1 && (d.exp1.role || d.exp1.company)) {
+        var dates = '';
+        if (d.exp1.from) dates = formatMonth(d.exp1.from) + ' – ' + (d.exp1.current ? 'дотепер' : (d.exp1.to ? formatMonth(d.exp1.to) : 'дотепер'));
+        exp1HTML = '<div class="resume-doc__exp-item">'
+          + '<div class="resume-doc__exp-header"><span class="resume-doc__exp-role">' + (d.exp1.role || '—') + '</span><span class="resume-doc__exp-dates">' + dates + '</span></div>'
+          + '<div class="resume-doc__exp-company">' + (d.exp1.company || '') + '</div>'
+          + (d.exp1.duties ? '<div class="resume-doc__exp-desc">' + d.exp1.duties + '</div>' : '')
+          + '</div><div class="resume-doc__divider"></div>';
+      }
+
+      var skillsHTML = (d.skills || []).map(s => '<span class="resume-doc__skill">' + s + '</span>').join('');
+
+      document.getElementById('modalResumeDoc').innerHTML =
+        '<div class="resume-doc__top">'
+          + '<div class="resume-doc__name">' + (fullName || '—') + '</div>'
+          + (d.position ? '<div class="resume-doc__pos">' + d.position + '</div>' : '')
+          + (industryLine ? '<div class="resume-doc__industry">' + industryLine + '</div>' : '')
+          + (contactsHTML ? '<div class="resume-doc__contacts">' + contactsHTML + '</div>' : '')
+        + '</div>'
+        + (d.summary ? '<div class="resume-doc__section"><div class="resume-doc__section-title">Про себе</div><p class="resume-doc__summary">' + d.summary + '</p></div>' : '')
+        + '<div class="resume-doc__section"><div class="resume-doc__section-title">Досвід роботи</div>' + exp1HTML
+          + '<div class="resume-doc__exp-item"><div class="resume-doc__exp-header"><span class="resume-doc__exp-role">UX Designer</span><span class="resume-doc__exp-dates">Бер 2018 – Лис 2020</span></div><div class="resume-doc__exp-company">Epam Systems</div><div class="resume-doc__exp-desc">Розробка UI/UX для корпоративних продуктів. User research та usability testing. Прототипи та wireframes у Figma.</div></div>'
+        + '</div>'
+        + (skillsHTML ? '<div class="resume-doc__divider"></div><div class="resume-doc__section"><div class="resume-doc__section-title">Навички</div><div class="resume-doc__skills">' + skillsHTML + '</div></div>' : '')
+        + (d.portfolio ? '<div class="resume-doc__section"><div class="resume-doc__section-title">Портфоліо</div><a class="resume-doc__portfolio" href="' + d.portfolio + '">' + d.portfolio + '</a></div>' : '');
+
+      document.getElementById('resumeModal').classList.add('resume-modal-overlay--open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+      if (e.target === document.getElementById('resumeModal')) closeModalBtn();
+    }
+
+    function closeModalBtn() {
+      document.getElementById('resumeModal').classList.remove('resume-modal-overlay--open');
+      document.body.style.overflow = '';
+    }
 
     function logout() {
       if (confirm('Вийти з акаунту? Всі дані буде очищено.')) {

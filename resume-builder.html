@@ -1,10 +1,687 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JobUA — Конструктор резюме</title>
+  <title>WorkHard — Конструктор резюме</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .rb-page {
+      background: var(--color-bg-light);
+      padding: 40px 0 80px;
+      min-height: calc(100vh - var(--header-height));
+    }
+
+    .rb-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .rb-form { display: flex; flex-direction: column; gap: 16px; }
+
+    /* Section card */
+    .rb-section {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+
+    .rb-section__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .rb-section__title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rb-section__num {
+      width: 30px;
+      height: 30px;
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .rb-section__title {
+      font-size: var(--font-size-base);
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    /* Fields */
+    .rb-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .rb-field:last-child { margin-bottom: 0; }
+
+    .rb-label {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .rb-label .opt {
+      color: var(--color-text-secondary);
+      font-weight: 400;
+    }
+
+    .rb-input {
+      height: 44px;
+      padding: 0 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text);
+      background: var(--color-bg);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    .rb-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(43,92,230,0.10);
+    }
+
+    .rb-input::placeholder { color: var(--color-text-secondary); }
+    .rb-input--icon { padding-left: 40px; }
+
+    /* Month inputs — filled style */
+    input[type="month"].rb-input {
+      height: 50px;
+      padding: 0 16px;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      background: #F2F4F8;
+      color: var(--color-text);
+      transition: background 0.2s, border-color 0.2s;
+      box-shadow: none;
+    }
+
+    input[type="month"].rb-input:hover {
+      background: #ECEEF4;
+    }
+
+    input[type="month"].rb-input:focus {
+      outline: none;
+      background: #EEF1FB;
+      border-color: var(--color-primary);
+      box-shadow: none;
+    }
+
+    .rb-input-wrap { position: relative; }
+
+    .rb-input-wrap__icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-secondary);
+      pointer-events: none;
+      display: flex;
+    }
+
+    .rb-textarea {
+      padding: 12px 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text);
+      background: var(--color-bg);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .rb-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(43,92,230,0.10);
+    }
+
+    .rb-textarea::placeholder { color: var(--color-text-secondary); }
+
+    .rb-row { display: grid; gap: 16px; margin-bottom: 16px; }
+    .rb-row--2 { grid-template-columns: 1fr 1fr; }
+    .rb-row:last-child { margin-bottom: 0; }
+
+    /* Checkbox */
+    .rb-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .rb-checkbox input { accent-color: var(--color-primary); cursor: pointer; }
+
+    /* Experience cards */
+    .rb-exp-card {
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .rb-exp-card--open .rb-exp-card__body { display: flex; }
+    .rb-exp-card--collapsed .rb-exp-card__body { display: none; }
+
+    .rb-exp-card__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .rb-exp-card--open .rb-exp-card__head {
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg);
+    }
+
+    .rb-exp-card__job { display: flex; flex-direction: column; gap: 2px; }
+
+    .rb-exp-card__role {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .rb-exp-card__meta {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .rb-exp-card__actions { display: flex; align-items: center; gap: 6px; }
+
+    .rb-exp-card__toggle {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .rb-exp-card__toggle:hover { background: var(--color-border); }
+    .rb-exp-card--open .rb-exp-card__toggle { transform: rotate(180deg); }
+
+    .rb-exp-card__body {
+      padding: 18px;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* AI button */
+    .btn-ai {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      background: rgba(245,158,11,0.10);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      color: #B45309;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: none;
+      flex-shrink: 0;
+    }
+
+    .btn-ai:hover { background: rgba(245,158,11,0.18); }
+
+    .rb-duties-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    /* Remove btn */
+    .btn-rm {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      font-size: var(--font-size-xs);
+      color: var(--color-error);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-rm:hover { background: rgba(239,68,68,0.08); }
+
+    /* Dashed add */
+    .btn-add-dashed {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 11px;
+      border: 1.5px dashed var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-primary);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: transparent;
+    }
+
+    .btn-add-dashed:hover {
+      border-color: var(--color-primary);
+      background: rgba(43,92,230,0.04);
+    }
+
+    /* Skills area */
+    .rb-skills-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      min-height: 52px;
+      background: var(--color-bg);
+      cursor: text;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .rb-skills-area:focus-within {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(43,92,230,0.10);
+    }
+
+    .rb-skill-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: rgba(43,92,230,0.08);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    .rb-skill-chip__x {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(43,92,230,0.18);
+      color: var(--color-primary);
+      font-size: 10px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .rb-skill-chip__x:hover { background: rgba(43,92,230,0.32); }
+
+    .rb-skills-area input {
+      border: none;
+      outline: none;
+      font-size: var(--font-size-sm);
+      color: var(--color-text);
+      background: transparent;
+      min-width: 120px;
+      font-family: inherit;
+    }
+
+    .rb-skills-area input::placeholder { color: var(--color-text-secondary); }
+
+    .rb-hint {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    /* Summary tabs */
+    .rb-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      background: var(--color-bg-light);
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+    }
+
+    .rb-tab {
+      flex: 1;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      text-align: center;
+      border: none;
+      background: none;
+    }
+
+    .rb-tab:hover { color: var(--color-text); }
+
+    .rb-tab--active {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .rb-summary-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .btn-regenerate {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      background: none;
+    }
+
+    .btn-regenerate:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    .rb-char-count { font-size: var(--font-size-xs); color: var(--color-text-secondary); }
+
+    /* Bottom actions */
+    .rb-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+    }
+
+    /* ── RIGHT: Preview ── */
+    .rb-preview-col {
+      position: sticky;
+      top: calc(var(--header-height) + 24px);
+    }
+
+    .rb-preview-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .rb-preview-card__header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .rb-preview-card__title {
+      font-size: var(--font-size-sm);
+      font-weight: 700;
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rb-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      background: rgba(16,185,129,0.10);
+      color: var(--color-success);
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .rb-live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-success);
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .rb-preview-card__body {
+      max-height: calc(100vh - var(--header-height) - 130px);
+      overflow-y: auto;
+    }
+
+    /* Empty state */
+    .rb-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 24px;
+      text-align: center;
+      gap: 10px;
+    }
+
+    .rb-empty__emoji { font-size: 42px; line-height: 1; margin-bottom: 4px; }
+
+    .rb-empty__title {
+      font-size: var(--font-size-md);
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .rb-empty__sub {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      max-width: 210px;
+      line-height: 1.55;
+    }
+
+    .rb-empty__dots { display: flex; gap: 7px; margin-top: 8px; }
+
+    .rb-empty__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-border);
+      animation: bounce-dot 1.4s ease-in-out infinite;
+    }
+
+    .rb-empty__dot:nth-child(2) { animation-delay: 0.2s; }
+    .rb-empty__dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce-dot {
+      0%, 80%, 100% { transform: scale(0.8); background: var(--color-border); }
+      40% { transform: scale(1.1); background: var(--color-primary); }
+    }
+
+    /* Resume document */
+    .resume-doc {
+      padding: 24px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .resume-doc__top {
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .resume-doc__name {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 3px;
+      line-height: 1.2;
+    }
+
+    .resume-doc__pos {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .resume-doc__industry {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .resume-doc__contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .resume-doc__contact {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .resume-doc__section { margin-top: 14px; }
+
+    .resume-doc__section-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .resume-doc__summary {
+      font-size: 11.5px;
+      color: var(--color-text);
+      line-height: 1.65;
+    }
+
+    .resume-doc__exp-item { margin-bottom: 10px; }
+
+    .resume-doc__exp-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .resume-doc__exp-role {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .resume-doc__exp-dates {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .resume-doc__exp-company {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .resume-doc__exp-desc {
+      font-size: 11px;
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    .resume-doc__divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: 10px 0;
+    }
+
+    .resume-doc__skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .resume-doc__skill {
+      padding: 3px 9px;
+      background: rgba(43,92,230,0.08);
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .resume-doc__portfolio {
+      font-size: 11px;
+      color: var(--color-primary);
+      text-decoration: underline;
+      word-break: break-all;
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .rb-layout { grid-template-columns: 1fr; }
+      .rb-preview-col { position: static; order: -1; }
+      .rb-row--2 { grid-template-columns: 1fr; }
+      .rb-preview-card__body { max-height: 480px; }
+    }
+
+    @media (max-width: 600px) {
+      .rb-page { padding: 16px 0 60px; }
+      .rb-section { padding: 18px 16px; }
+      .rb-actions { flex-direction: column; }
+    }
+  </style>
 </head>
 <body class="page-wrapper">
 
@@ -13,111 +690,428 @@
     <div class="container">
       <div class="header__inner">
         <a href="index.html" class="header__logo">
-          <div class="header__logo-icon">J</div>
-          JobUA
+          <div class="header__logo-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="11" y="11" width="7" height="7" rx="1.5" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
+          <span class="header__logo-text">WorkHard</span>
         </a>
+        <nav class="header__nav">
+          <a href="jobs.html" class="header__nav-link">Вакансії</a>
+          <a href="company.html" class="header__nav-link">Компанії</a>
+        </nav>
         <div class="header__actions">
-          <a href="my-resumes.html" class="btn btn--outline btn--sm">← Мої резюме</a>
-          <button class="btn btn--primary btn--sm" onclick="localStorage.setItem('workhard_has_resume','1'); window.location.href='my-resumes.html';">Зберегти</button>
-          <button class="mobile-menu-btn" aria-label="Меню">
-            <span></span><span></span><span></span>
+          <div style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--color-border);border-radius:var(--radius-full);font-size:var(--font-size-xs);font-weight:600;color:var(--color-text);background:var(--color-bg);cursor:pointer;">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.76 3.56L14 5.18l-3 2.92.71 4.12L8 10.1l-3.71 2.12.71-4.12L2 5.18l4.24-.62L8 1z" fill="#F59E0B"/></svg>
+            12 AI Credits
+          </div>
+          <button class="header__user-btn" aria-label="Сповіщення">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2a6 6 0 0 0-6 6v3l-1.5 2.5h15L16 11V8a6 6 0 0 0-6-6z" stroke="#1A1A2E" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M8.5 16.5a1.5 1.5 0 0 0 3 0" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="14" cy="4" r="2.5" fill="#EF4444"/>
+            </svg>
           </button>
+          <a href="profile.html" style="width:38px;height:38px;border-radius:var(--radius-full);background:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-xs);font-weight:700;color:#fff;text-decoration:none;flex-shrink:0;">JD</a>
         </div>
       </div>
     </div>
   </header>
 
-  <main>
-    <div style="padding: var(--spacing-2xl) 0;">
-      <div class="container">
+  <main class="rb-page">
+    <div class="container">
 
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-xl);">
-          <h1 class="section-title">Конструктор резюме</h1>
-          <div style="display: flex; gap: var(--spacing-sm);">
-            <button class="btn btn--outline btn--sm">Попередній перегляд</button>
-            <button class="btn btn--outline btn--sm">Завантажити PDF</button>
-          </div>
-        </div>
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="index.html">Головна</a>
+        <span class="breadcrumb__sep">/</span>
+        <a href="my-resumes.html">Мої резюме</a>
+        <span class="breadcrumb__sep">/</span>
+        <span class="breadcrumb__current">Конструктор резюме</span>
+      </nav>
 
-        <!-- BUILDER LAYOUT: form left, preview right -->
-        <div class="layout-with-sidebar--right layout-with-sidebar">
-
-          <!-- LEFT: FORM SECTIONS -->
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-lg);">
-
-            <!-- Steps / Progress -->
-            <div class="placeholder-box" style="min-height: 60px; flex-direction: row; gap: 16px;">
-              <span style="font-weight: 700;">ПРОГРЕС-БАР</span>
-              <span>Особисті дані → Досвід → Освіта → Навички → Мови → Готово</span>
-            </div>
-
-            <!-- Personal info -->
-            <div class="placeholder-box" style="min-height: 280px; flex-direction: column; gap: 8px;">
-              <span style="font-weight: 700;">1. ОСОБИСТІ ДАНІ</span>
-              <span>Фото<br>Ім'я · Прізвище<br>Посада (бажана)<br>Телефон · Email · Місто<br>LinkedIn · Portfolio</span>
-            </div>
-
-            <!-- Work experience -->
-            <div class="placeholder-box" style="min-height: 320px; flex-direction: column; gap: 8px;">
-              <span style="font-weight: 700;">2. ДОСВІД РОБОТИ</span>
-              <span>Компанія · Посада<br>Період роботи (від — до)<br>Опис обов'язків<br>Кнопка "+ Додати ще місце роботи"</span>
-            </div>
-
-            <!-- Education -->
-            <div class="placeholder-box" style="min-height: 240px; flex-direction: column; gap: 8px;">
-              <span style="font-weight: 700;">3. ОСВІТА</span>
-              <span>Заклад · Спеціальність<br>Рівень освіти<br>Рік закінчення<br>Кнопка "+ Додати"</span>
-            </div>
-
-            <!-- Skills -->
-            <div class="placeholder-box" style="min-height: 180px; flex-direction: column; gap: 8px;">
-              <span style="font-weight: 700;">4. НАВИЧКИ</span>
-              <span>Теги зі скілами (input + додавання)<br>Рівень (beginner / intermediate / expert)</span>
-            </div>
-
-            <!-- Languages -->
-            <div class="placeholder-box" style="min-height: 160px; flex-direction: column; gap: 8px;">
-              <span style="font-weight: 700;">5. МОВИ</span>
-              <span>Мова + рівень (A1–C2)<br>Кнопка "+ Додати"</span>
-            </div>
-
-            <!-- About -->
-            <div class="placeholder-box" style="min-height: 160px; flex-direction: column; gap: 8px;">
-              <span style="font-weight: 700;">6. ПРО СЕБЕ</span>
-              <span>Textarea: короткий опис<br>Лічильник символів</span>
-            </div>
-
-            <!-- Save -->
-            <div style="display: flex; gap: var(--spacing-md);">
-              <button class="btn btn--primary btn--lg">Зберегти резюме</button>
-              <a href="my-resumes.html" class="btn btn--outline btn--lg">Скасувати</a>
-            </div>
-
-          </div>
-
-          <!-- RIGHT: RESUME PREVIEW -->
-          <aside>
-            <div class="placeholder-box" style="min-height: 700px; flex-direction: column; gap: 8px; position: sticky; top: 88px;">
-              <span style="font-weight: 700;">ПОПЕРЕДНІЙ ПЕРЕГЛЯД РЕЗЮМЕ</span>
-              <span>Live-preview резюме у форматі A4<br>(оновлюється при заповненні форми)</span>
-            </div>
-          </aside>
-
+      <!-- Title row -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;">
+        <div>
+          <h1 style="font-size:var(--font-size-2xl);font-weight:800;color:var(--color-text);">Конструктор резюме</h1>
+          <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-top:4px;">Заповніть форму — резюме оновлюється в реальному часі</p>
         </div>
       </div>
-    </div>
+
+      <div class="rb-layout">
+
+        <!-- ── LEFT: FORM ── -->
+        <div class="rb-form">
+
+          <!-- 1. Базова інформація -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <div class="rb-section__title-row">
+                <div class="rb-section__num">1</div>
+                <h2 class="rb-section__title">Базова інформація</h2>
+              </div>
+              <span class="btn-rm" onclick="clearSection1()">
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Видалити
+              </span>
+            </div>
+
+            <div class="rb-field">
+              <label class="rb-label">Яку посаду ви шукаєте? <span style="color:var(--color-error)">*</span></label>
+              <input type="text" class="rb-input" id="rb-position" placeholder="Senior Product Designer" oninput="updatePreview()">
+            </div>
+
+            <div class="rb-row rb-row--2">
+              <div class="rb-field" style="margin:0">
+                <label class="rb-label">Років досвіду</label>
+                <input type="number" class="rb-input" id="rb-years" placeholder="5" min="0" max="50" oninput="updatePreview()">
+              </div>
+              <div class="rb-field" style="margin:0">
+                <label class="rb-label">Сфера / Індустрія</label>
+                <input type="text" class="rb-input" id="rb-industry" placeholder="FinTech, IT, Design..." oninput="updatePreview()">
+              </div>
+            </div>
+
+            <div class="rb-row rb-row--2" style="margin-top:16px;">
+              <div class="rb-field" style="margin:0">
+                <label class="rb-label">Ім'я <span style="color:var(--color-error)">*</span></label>
+                <input type="text" class="rb-input" id="rb-firstname" placeholder="Юлія" oninput="updatePreview()">
+              </div>
+              <div class="rb-field" style="margin:0">
+                <label class="rb-label">Прізвище <span style="color:var(--color-error)">*</span></label>
+                <input type="text" class="rb-input" id="rb-lastname" placeholder="Шевчук" oninput="updatePreview()">
+              </div>
+            </div>
+
+            <div class="rb-row rb-row--2" style="margin-top:16px;">
+              <div class="rb-field" style="margin:0">
+                <label class="rb-label">Email <span style="color:var(--color-error)">*</span></label>
+                <input type="email" class="rb-input" id="rb-email" placeholder="email@example.com" oninput="updatePreview()">
+              </div>
+              <div class="rb-field" style="margin:0">
+                <label class="rb-label">Телефон <span class="opt">(необов'язково)</span></label>
+                <input type="tel" class="rb-input" id="rb-phone" placeholder="+380 __ ___ __ __" oninput="updatePreview()">
+              </div>
+            </div>
+
+            <div class="rb-field" style="margin-top:16px;">
+              <label class="rb-label">Посилання на портфоліо <span class="opt">(необов'язково)</span></label>
+              <div class="rb-input-wrap">
+                <span class="rb-input-wrap__icon">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M7 9a3 3 0 0 0 4.243 0l2.121-2.122a3 3 0 0 0-4.243-4.242L8 3.757" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9 7a3 3 0 0 0-4.243 0L2.636 9.121a3 3 0 0 0 4.243 4.243L8 12.243" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </span>
+                <input type="url" class="rb-input rb-input--icon" id="rb-portfolio" placeholder="https://yourportfolio.com" oninput="updatePreview()">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Досвід роботи -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <div class="rb-section__title-row">
+                <div class="rb-section__num">2</div>
+                <h2 class="rb-section__title">Досвід роботи</h2>
+              </div>
+              <button class="btn btn--outline btn--sm" style="gap:6px;">
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                Додати
+              </button>
+            </div>
+
+            <!-- Card 1 — open -->
+            <div class="rb-exp-card rb-exp-card--open" id="expCard1">
+              <div class="rb-exp-card__head" onclick="toggleExpCard(this)">
+                <div class="rb-exp-card__job">
+                  <span class="rb-exp-card__role" id="exp1-title">Місце роботи #1</span>
+                  <span class="rb-exp-card__meta" id="exp1-meta">Поточне місце роботи</span>
+                </div>
+                <div class="rb-exp-card__actions">
+                  <span class="btn-rm" onclick="event.stopPropagation(); deleteExpCard(this)">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    Видалити
+                  </span>
+                  <div class="rb-exp-card__toggle">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="rb-exp-card__body">
+                <div class="rb-row rb-row--2">
+                  <div class="rb-field" style="margin:0">
+                    <label class="rb-label">Компанія</label>
+                    <input type="text" class="rb-input" id="exp1-company" placeholder="Monobank" oninput="syncExpCard(1); updatePreview()">
+                  </div>
+                  <div class="rb-field" style="margin:0">
+                    <label class="rb-label">Посада</label>
+                    <input type="text" class="rb-input" id="exp1-role" placeholder="Product Designer" oninput="syncExpCard(1); updatePreview()">
+                  </div>
+                </div>
+                <div class="rb-row rb-row--2">
+                  <div class="rb-field" style="margin:0">
+                    <label class="rb-label">З</label>
+                    <input type="month" class="rb-input" id="exp1-from" oninput="syncExpCard(1); updatePreview()">
+                  </div>
+                  <div class="rb-field" style="margin:0">
+                    <label class="rb-label">По</label>
+                    <input type="month" class="rb-input" id="exp1-to" oninput="syncExpCard(1); updatePreview()">
+                  </div>
+                </div>
+                <label class="rb-checkbox">
+                  <input type="checkbox" id="exp1-current" onchange="syncExpCard(1); updatePreview()"> Працюю тут зараз
+                </label>
+                <div>
+                  <div class="rb-duties-header">
+                    <label class="rb-label">Основні обов'язки та результати</label>
+                    <button class="btn-ai">
+                      <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.76 3.56L14 5.18l-3 2.92.71 4.12L8 10.1l-3.71 2.12.71-4.12L2 5.18l4.24-.62L8 1z" fill="#F59E0B"/></svg>
+                      Покращити з AI
+                    </button>
+                  </div>
+                  <textarea class="rb-textarea" id="exp1-duties" rows="4" placeholder="Описуйте ключові досягнення та обов'язки, використовуючи дієслова дії..." oninput="updatePreview()"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 — collapsed -->
+            <div class="rb-exp-card rb-exp-card--collapsed" id="expCard2">
+              <div class="rb-exp-card__head" onclick="toggleExpCard(this)">
+                <div class="rb-exp-card__job">
+                  <span class="rb-exp-card__role">UX Designer</span>
+                  <span class="rb-exp-card__meta">Epam Systems • 2018 – 2020</span>
+                </div>
+                <div class="rb-exp-card__actions">
+                  <span class="btn-rm" onclick="event.stopPropagation(); deleteExpCard(this)">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    Видалити
+                  </span>
+                  <div class="rb-exp-card__toggle">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="rb-exp-card__body">
+                <div class="rb-row rb-row--2">
+                  <div class="rb-field" style="margin:0">
+                    <label class="rb-label">Компанія</label>
+                    <input type="text" class="rb-input" value="Epam Systems">
+                  </div>
+                  <div class="rb-field" style="margin:0">
+                    <label class="rb-label">Посада</label>
+                    <input type="text" class="rb-input" value="UX Designer">
+                  </div>
+                </div>
+                <div class="rb-row rb-row--2">
+                  <div class="rb-field" style="margin:0">
+                    <label class="rb-label">З</label>
+                    <input type="month" class="rb-input" value="2018-03">
+                  </div>
+                  <div class="rb-field" style="margin:0">
+                    <label class="rb-label">По</label>
+                    <input type="month" class="rb-input" value="2020-11">
+                  </div>
+                </div>
+                <div>
+                  <div class="rb-duties-header">
+                    <label class="rb-label">Основні обов'язки та результати</label>
+                    <button class="btn-ai">
+                      <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.76 3.56L14 5.18l-3 2.92.71 4.12L8 10.1l-3.71 2.12.71-4.12L2 5.18l4.24-.62L8 1z" fill="#F59E0B"/></svg>
+                      Покращити з AI
+                    </button>
+                  </div>
+                  <textarea class="rb-textarea" rows="4">Розробка UI/UX дизайну для корпоративних продуктів. Проведення user research та usability testing. Створення прототипів та wireframes у Figma.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-add-dashed">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Додати місце роботи
+            </button>
+          </div>
+
+          <!-- 3. Навички -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <div class="rb-section__title-row">
+                <div class="rb-section__num">3</div>
+                <h2 class="rb-section__title">Навички</h2>
+              </div>
+              <span class="btn-rm" onclick="clearSkills()">
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Видалити
+              </span>
+            </div>
+
+            <div class="rb-field" style="margin:0">
+              <div class="rb-skills-area" id="skillsArea" onclick="document.getElementById('skillInput').focus()">
+                <span class="rb-skill-chip" data-skill="User Research">User Research <span class="rb-skill-chip__x" onclick="removeSkill(this)">×</span></span>
+                <span class="rb-skill-chip" data-skill="Prototyping">Prototyping <span class="rb-skill-chip__x" onclick="removeSkill(this)">×</span></span>
+                <span class="rb-skill-chip" data-skill="Design Systems">Design Systems <span class="rb-skill-chip__x" onclick="removeSkill(this)">×</span></span>
+                <span class="rb-skill-chip" data-skill="Figma">Figma <span class="rb-skill-chip__x" onclick="removeSkill(this)">×</span></span>
+                <span class="rb-skill-chip" data-skill="Adobe XD">Adobe XD <span class="rb-skill-chip__x" onclick="removeSkill(this)">×</span></span>
+                <input type="text" id="skillInput" placeholder="Додати навичку..." onkeydown="handleSkillInput(event)">
+              </div>
+              <p class="rb-hint">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.76 3.56L14 5.18l-3 2.92.71 4.12L8 10.1l-3.71 2.12.71-4.12L2 5.18l4.24-.62L8 1z" fill="#F59E0B"/></svg>
+                AI рекомендує ці навички для вашої позиції. Натисніть Enter, щоб додати нову.
+              </p>
+            </div>
+          </div>
+
+          <!-- 4. Про себе (Summary) -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <div class="rb-section__title-row">
+                <div class="rb-section__num">4</div>
+                <h2 class="rb-section__title">Про себе <span style="color:var(--color-text-secondary);font-weight:400;font-size:var(--font-size-sm);">(Summary)</span></h2>
+              </div>
+              <span class="btn-rm" onclick="clearSummary()">
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Видалити
+              </span>
+            </div>
+
+            <div class="rb-tabs">
+              <button class="rb-tab rb-tab--active" onclick="switchTab(this)">Лаконічний</button>
+              <button class="rb-tab" onclick="switchTab(this)">Креативний</button>
+              <button class="rb-tab" onclick="switchTab(this)">Офіційний</button>
+            </div>
+
+            <textarea class="rb-textarea" id="rb-summary" rows="5" placeholder="Розкажіть про свій досвід, сильні сторони та кар'єрні цілі..." oninput="updatePreview(); updateCharCount()"></textarea>
+
+            <div class="rb-summary-footer">
+              <span class="rb-char-count" id="summaryCount">0 / 600 символів</span>
+              <button class="btn-regenerate">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5M8 2.5V0l3 2.5-3 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Generate again
+              </button>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="rb-actions">
+            <a href="my-resumes.html" class="btn btn--outline">← Скасувати</a>
+            <div style="display:flex;gap:10px;">
+              <button class="btn btn--outline">Зберегти чернетку</button>
+              <button class="btn btn--primary" onclick="publishResume()">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="white" stroke-width="1.5"/><path d="M8 5v6M5.5 8l2.5 3 2.5-3" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Опублікувати
+              </button>
+            </div>
+          </div>
+
+        </div><!-- end rb-form -->
+
+        <!-- ── RIGHT: PREVIEW ── -->
+        <aside class="rb-preview-col">
+          <div class="rb-preview-card">
+            <div class="rb-preview-card__header">
+              <span class="rb-preview-card__title">
+                Прев'ю резюме
+                <span class="rb-live-badge">
+                  <span class="rb-live-dot"></span>
+                  LIVE
+                </span>
+              </span>
+              <button class="btn btn--outline btn--sm">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                PDF
+              </button>
+            </div>
+
+            <div class="rb-preview-card__body">
+
+              <!-- Empty state -->
+              <div class="rb-empty" id="previewEmpty">
+                <div class="rb-empty__emoji">🤓</div>
+                <p class="rb-empty__title">Створюємо резюме</p>
+                <p class="rb-empty__sub">Почніть заповнювати форму — резюме з'явиться тут в реальному часі</p>
+                <div class="rb-empty__dots">
+                  <div class="rb-empty__dot"></div>
+                  <div class="rb-empty__dot"></div>
+                  <div class="rb-empty__dot"></div>
+                </div>
+              </div>
+
+              <!-- Resume document -->
+              <div class="resume-doc" id="previewDoc" style="display:none;">
+
+                <div class="resume-doc__top">
+                  <div class="resume-doc__name" id="prev-name"></div>
+                  <div class="resume-doc__pos" id="prev-pos"></div>
+                  <div class="resume-doc__industry" id="prev-industry"></div>
+                  <div class="resume-doc__contacts" id="prev-contacts"></div>
+                </div>
+
+                <!-- Summary -->
+                <div class="resume-doc__section" id="prev-summary-sec" style="display:none;">
+                  <div class="resume-doc__section-title">Про себе</div>
+                  <p class="resume-doc__summary" id="prev-summary-text"></p>
+                </div>
+
+                <!-- Experience -->
+                <div class="resume-doc__section">
+                  <div class="resume-doc__section-title">Досвід роботи</div>
+
+                  <!-- Exp 1 (dynamic) -->
+                  <div class="resume-doc__exp-item" id="prev-exp1">
+                    <div class="resume-doc__exp-header">
+                      <span class="resume-doc__exp-role" id="prev-exp1-role">—</span>
+                      <span class="resume-doc__exp-dates" id="prev-exp1-dates"></span>
+                    </div>
+                    <div class="resume-doc__exp-company" id="prev-exp1-company">—</div>
+                    <div class="resume-doc__exp-desc" id="prev-exp1-desc"></div>
+                  </div>
+
+                  <div class="resume-doc__divider"></div>
+
+                  <!-- Exp 2 (static) -->
+                  <div class="resume-doc__exp-item">
+                    <div class="resume-doc__exp-header">
+                      <span class="resume-doc__exp-role">UX Designer</span>
+                      <span class="resume-doc__exp-dates">Бер 2018 – Лис 2020</span>
+                    </div>
+                    <div class="resume-doc__exp-company">Epam Systems</div>
+                    <div class="resume-doc__exp-desc">Розробка UI/UX для корпоративних продуктів. User research та usability testing. Прототипи та wireframes у Figma.</div>
+                  </div>
+                </div>
+
+                <div class="resume-doc__divider"></div>
+
+                <!-- Skills -->
+                <div class="resume-doc__section">
+                  <div class="resume-doc__section-title">Навички</div>
+                  <div class="resume-doc__skills" id="prev-skills"></div>
+                </div>
+
+                <!-- Portfolio -->
+                <div class="resume-doc__section" id="prev-portfolio-sec" style="display:none;">
+                  <div class="resume-doc__section-title">Портфоліо</div>
+                  <a class="resume-doc__portfolio" id="prev-portfolio-link"></a>
+                </div>
+
+              </div><!-- end resume-doc -->
+
+            </div><!-- end card body -->
+          </div><!-- end card -->
+        </aside>
+
+      </div><!-- end rb-layout -->
+    </div><!-- end container -->
   </main>
 
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer__inner">
-
-        <!-- Brand -->
         <div>
           <a href="index.html" class="footer__brand">
             <div class="header__logo-icon">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <rect x="2" y="2" width="7" height="7" rx="1.5" fill="white"/>
                 <rect x="11" y="2" width="7" height="7" rx="1.5" fill="white"/>
                 <rect x="2" y="11" width="7" height="7" rx="1.5" fill="white"/>
@@ -128,27 +1122,10 @@
           </a>
           <p class="footer__desc">Платформа для пошуку роботи, де цінують ваш час та професіоналізм.</p>
           <div class="footer__social">
-            <a href="#" class="footer__social-link" aria-label="LinkedIn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            </a>
-            <a href="#" class="footer__social-link" aria-label="Twitter / X">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-            <a href="#" class="footer__social-link" aria-label="Facebook">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-              </svg>
-            </a>
+            <a href="#" class="footer__social-link" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Twitter"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
           </div>
         </div>
-
-        <!-- Платформа -->
         <div>
           <p class="footer__col-title">Платформа</p>
           <ul class="footer__links">
@@ -157,27 +1134,20 @@
             <li><a href="#" class="footer__link">Контакти</a></li>
           </ul>
         </div>
-
-        <!-- Роботодавцям -->
         <div>
           <p class="footer__col-title">Роботодавцям</p>
           <ul class="footer__links">
             <li><a href="#" class="footer__link">Розмістити вакансію</a></li>
             <li><a href="#" class="footer__link">Тарифи</a></li>
-            <li><a href="#" class="footer__link">Успішні кейси</a></li>
           </ul>
         </div>
-
-        <!-- Legal -->
         <div>
           <p class="footer__col-title">Legal</p>
           <ul class="footer__links">
-            <li><a href="#" class="footer__link">Політика конфіденційності</a></li>
+            <li><a href="#" class="footer__link">Конфіденційність</a></li>
             <li><a href="#" class="footer__link">Умови використання</a></li>
-            <li><a href="#" class="footer__link">Безпека та верифікація</a></li>
           </ul>
         </div>
-
       </div>
       <div class="footer__bottom">
         <span>&copy; 2025 JobUA. Всі права захищені.</span>
@@ -185,6 +1155,229 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // ── Helpers ──
+    const $ = id => document.getElementById(id);
+    const val = id => ($( id) ? $(id).value.trim() : '');
+
+    function formatMonth(ym) {
+      if (!ym) return '';
+      const [y, m] = ym.split('-');
+      const names = ['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру'];
+      return names[parseInt(m, 10) - 1] + ' ' + y;
+    }
+
+    // ── Sync exp card header ──
+    function syncExpCard(n) {
+      const company = val('exp' + n + '-company');
+      const role    = val('exp' + n + '-role');
+      const from    = val('exp' + n + '-from');
+      const to      = val('exp' + n + '-to');
+      const current = $('exp' + n + '-current') && $('exp' + n + '-current').checked;
+
+      const titleEl = $('exp' + n + '-title');
+      const metaEl  = $('exp' + n + '-meta');
+      if (!titleEl) return;
+
+      titleEl.textContent = role || company
+        ? [role, company].filter(Boolean).join(' @ ')
+        : 'Місце роботи #' + n;
+
+      if (from) {
+        const toStr = current ? 'дотепер' : (to ? formatMonth(to) : '...');
+        metaEl.textContent = formatMonth(from) + ' – ' + toStr;
+      } else {
+        metaEl.textContent = current ? 'Поточне місце роботи' : 'Поточне місце роботи';
+      }
+    }
+
+    // ── Toggle exp card ──
+    function toggleExpCard(headEl) {
+      const card = headEl.closest('.rb-exp-card');
+      card.classList.toggle('rb-exp-card--open');
+      card.classList.toggle('rb-exp-card--collapsed');
+    }
+
+    // ── Skills ──
+    function removeSkill(xBtn) {
+      xBtn.closest('.rb-skill-chip').remove();
+      updatePreview();
+    }
+
+    function handleSkillInput(e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      const input = $('skillInput');
+      const text  = input.value.trim();
+      if (!text) return;
+      const chip = document.createElement('span');
+      chip.className = 'rb-skill-chip';
+      chip.dataset.skill = text;
+      chip.innerHTML = text + ' <span class="rb-skill-chip__x" onclick="removeSkill(this)">×</span>';
+      $('skillsArea').insertBefore(chip, input);
+      input.value = '';
+      updatePreview();
+    }
+
+    // ── Summary tabs ──
+    function switchTab(btn) {
+      document.querySelectorAll('.rb-tab').forEach(t => t.classList.remove('rb-tab--active'));
+      btn.classList.add('rb-tab--active');
+    }
+
+    // ── Char counter ──
+    function updateCharCount() {
+      const len = $('rb-summary').value.length;
+      $('summaryCount').textContent = len + ' / 600 символів';
+    }
+
+    // ── Live preview ──
+    function updatePreview() {
+      const firstname = val('rb-firstname');
+      const lastname  = val('rb-lastname');
+      const position  = val('rb-position');
+      const email     = val('rb-email');
+      const phone     = val('rb-phone');
+      const years     = val('rb-years');
+      const industry  = val('rb-industry');
+      const portfolio = val('rb-portfolio');
+      const summary   = $('rb-summary').value.trim();
+
+      const exp1company = val('exp1-company');
+      const exp1role    = val('exp1-role');
+      const exp1from    = val('exp1-from');
+      const exp1to      = val('exp1-to');
+      const exp1current = $('exp1-current') && $('exp1-current').checked;
+      const exp1duties  = $('exp1-duties').value.trim();
+
+      const hasAny = firstname || lastname || position || email;
+
+      $('previewEmpty').style.display = hasAny ? 'none' : 'flex';
+      $('previewDoc').style.display   = hasAny ? 'block' : 'none';
+      if (!hasAny) return;
+
+      // Name
+      const fullName = [firstname, lastname].filter(Boolean).join(' ');
+      $('prev-name').textContent = fullName || '—';
+
+      // Position
+      $('prev-pos').textContent = position;
+
+      // Industry / years
+      let industryLine = '';
+      if (years)    industryLine += years + ' ' + (parseInt(years) === 1 ? 'рік' : parseInt(years) < 5 ? 'роки' : 'років') + ' досвіду';
+      if (industry) industryLine += (industryLine ? ' · ' : '') + industry;
+      $('prev-industry').textContent = industryLine;
+      $('prev-industry').style.display = industryLine ? 'block' : 'none';
+
+      // Contacts
+      let contactsHTML = '';
+      if (email) contactsHTML += '<span class="resume-doc__contact"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="1" y="2" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M1 3l5 3.5 5-3.5" stroke="currentColor" stroke-width="1.2"/></svg>' + email + '</span>';
+      if (phone) contactsHTML += '<span class="resume-doc__contact"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 2h2.5l1 2.5-1.5 1a6 6 0 0 0 3 3l1-1.5 2.5 1V10a1 1 0 0 1-1 1A9 9 0 0 1 1 3a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.1"/></svg>' + phone + '</span>';
+      $('prev-contacts').innerHTML = contactsHTML;
+
+      // Summary
+      if (summary) {
+        $('prev-summary-sec').style.display = 'block';
+        $('prev-summary-text').textContent = summary;
+      } else {
+        $('prev-summary-sec').style.display = 'none';
+      }
+
+      // Exp 1
+      $('prev-exp1-role').textContent    = exp1role    || '—';
+      $('prev-exp1-company').textContent = exp1company || '—';
+      $('prev-exp1-desc').textContent    = exp1duties;
+
+      let datesStr = '';
+      if (exp1from) {
+        datesStr = formatMonth(exp1from) + ' – ' + (exp1current ? 'дотепер' : (exp1to ? formatMonth(exp1to) : 'дотепер'));
+      } else if (exp1current) {
+        datesStr = 'дотепер';
+      }
+      $('prev-exp1-dates').textContent = datesStr;
+
+      // Skills
+      const chips = document.querySelectorAll('#skillsArea .rb-skill-chip');
+      const skillsEl = $('prev-skills');
+      skillsEl.innerHTML = '';
+      chips.forEach(chip => {
+        if (!chip.dataset.skill) return;
+        const s = document.createElement('span');
+        s.className = 'resume-doc__skill';
+        s.textContent = chip.dataset.skill;
+        skillsEl.appendChild(s);
+      });
+
+      // Portfolio
+      if (portfolio) {
+        $('prev-portfolio-sec').style.display = 'block';
+        $('prev-portfolio-link').textContent = portfolio;
+        $('prev-portfolio-link').href = portfolio;
+      } else {
+        $('prev-portfolio-sec').style.display = 'none';
+      }
+    }
+
+    // ── Publish ──
+    function publishResume() {
+      const position    = val('rb-position');
+      const firstname   = val('rb-firstname');
+      const lastname    = val('rb-lastname');
+      const email       = val('rb-email');
+      const phone       = val('rb-phone');
+      const years       = val('rb-years');
+      const industry    = val('rb-industry');
+      const portfolio   = val('rb-portfolio');
+      const summary     = $('rb-summary').value.trim();
+      const exp1company = val('exp1-company');
+      const exp1role    = val('exp1-role');
+      const exp1from    = val('exp1-from');
+      const exp1to      = val('exp1-to');
+      const exp1current = $('exp1-current') ? $('exp1-current').checked : false;
+      const exp1duties  = $('exp1-duties') ? $('exp1-duties').value.trim() : '';
+      const skills = [...document.querySelectorAll('#skillsArea .rb-skill-chip')]
+        .map(c => c.dataset.skill).filter(Boolean);
+
+      const data = {
+        firstname, lastname, position, email, phone, years, industry, portfolio, summary, skills,
+        exp1: { company: exp1company, role: exp1role, from: exp1from, to: exp1to, current: exp1current, duties: exp1duties }
+      };
+
+      localStorage.setItem('workhard_has_resume', '1');
+      localStorage.setItem('workhard_resume_data', JSON.stringify(data));
+      window.location.href = 'my-resumes.html';
+    }
+
+    // ── Delete / clear actions ──
+    function clearSection1() {
+      ['rb-position','rb-years','rb-industry','rb-firstname','rb-lastname','rb-email','rb-phone','rb-portfolio'].forEach(id => {
+        const el = $(id);
+        if (el) el.value = '';
+      });
+      updatePreview();
+    }
+
+    function clearSkills() {
+      document.querySelectorAll('#skillsArea .rb-skill-chip').forEach(chip => chip.remove());
+      updatePreview();
+    }
+
+    function clearSummary() {
+      $('rb-summary').value = '';
+      updateCharCount();
+      updatePreview();
+    }
+
+    function deleteExpCard(btn) {
+      btn.closest('.rb-exp-card').remove();
+      updatePreview();
+    }
+
+    // Init — sync skills into preview on load
+    updatePreview();
+  </script>
 
 </body>
 </html>

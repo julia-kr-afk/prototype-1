@@ -31,8 +31,8 @@
           <a href="jobs.html" class="header__nav-link active">Пошук вакансій</a>
           <a href="company.html" class="header__nav-link">Компанії</a>
           <a href="resume-builder.html" class="header__nav-link">Створити резюме</a>
-          <a href="#" class="header__nav-link">Для роботодавців</a>
-          <a href="#" class="header__nav-link">Про нас</a>
+          <a href="for-employers.html" class="header__nav-link">Для роботодавців</a>
+          <a href="about.html" class="header__nav-link">Про нас</a>
         </nav>
 
         <!-- ACTIONS -->
@@ -159,7 +159,7 @@
                     <span class="jcard__tag">FinTech</span>
                   </div>
                   <div class="jcard__actions">
-                    <button class="jcard__save" aria-label="Зберегти">
+                    <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
                     </button>
                     <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
@@ -205,7 +205,7 @@
                     <span class="jcard__tag">Growth</span>
                   </div>
                   <div class="jcard__actions">
-                    <button class="jcard__save" aria-label="Зберегти">
+                    <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
                     </button>
                     <a href="apply.html" class="jcard__btn jcard__btn--primary">Відгукнутись в 1 клік</a>
@@ -246,7 +246,7 @@
                     <span class="jcard__tag">B2B</span>
                   </div>
                   <div class="jcard__actions">
-                    <button class="jcard__save" aria-label="Зберегти">
+                    <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
                     </button>
                     <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
@@ -287,7 +287,7 @@
                     <span class="jcard__tag">HTML/CSS</span>
                   </div>
                   <div class="jcard__actions">
-                    <button class="jcard__save" aria-label="Зберегти">
+                    <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
                     </button>
                     <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
@@ -325,7 +325,7 @@
                   <div class="jcard__footer">
                     <div class="jcard__tags"><span class="jcard__tag">Roadmap</span><span class="jcard__tag">Mobile</span><span class="jcard__tag">Agile</span></div>
                     <div class="jcard__actions">
-                      <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                      <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
                       <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
                       <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
                     </div>
@@ -359,7 +359,7 @@
                   <div class="jcard__footer">
                     <div class="jcard__tags"><span class="jcard__tag">After Effects</span><span class="jcard__tag">Lottie</span><span class="jcard__tag">iOS</span></div>
                     <div class="jcard__actions">
-                      <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                      <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
                       <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
                       <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
                     </div>
@@ -401,7 +401,7 @@
                 <div class="jcard__footer">
                   <div class="jcard__tags"><span class="jcard__tag">User Research</span><span class="jcard__tag">Usability</span><span class="jcard__tag">SaaS</span></div>
                   <div class="jcard__actions">
-                    <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                    <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
                     <a href="apply.html" class="jcard__btn jcard__btn--primary">Відгукнутись в 1 клік</a>
                   </div>
                 </div>
@@ -434,7 +434,7 @@
                 <div class="jcard__footer">
                   <div class="jcard__tags"><span class="jcard__tag">Branding</span><span class="jcard__tag">Illustrator</span><span class="jcard__tag">E-commerce</span></div>
                   <div class="jcard__actions">
-                    <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                    <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
                     <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
                     <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
                   </div>
@@ -468,7 +468,7 @@
                 <div class="jcard__footer">
                   <div class="jcard__tags"><span class="jcard__tag">Figma</span><span class="jcard__tag">IoT</span><span class="jcard__tag">Mobile UI</span></div>
                   <div class="jcard__actions">
-                    <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                    <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
                     <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
                     <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
                   </div>
@@ -500,7 +500,7 @@
                 <div class="jcard__footer">
                   <div class="jcard__tags"><span class="jcard__tag">HTML/CSS</span><span class="jcard__tag">Figma</span><span class="jcard__tag">Держсектор</span></div>
                   <div class="jcard__actions">
-                    <button class="jcard__save" aria-label="Зберегти"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+                    <button class="jcard__save" aria-label="Зберегти" onclick="toggleSaveJob(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
                     <a href="job.html" class="jcard__btn jcard__btn--outline">Переглянути</a>
                     <a href="apply.html" class="jcard__btn jcard__btn--dark">Відгукнутись</a>
                   </div>
@@ -855,7 +855,70 @@
     </div>
   </footer>
 
+  <style>
+    .jcard__save--saved { background: rgba(43,92,230,0.08); border-color: var(--color-primary); }
+    .jcard__save--saved svg { fill: var(--color-primary); stroke: var(--color-primary); }
+  </style>
+
   <script>
+    // ── Save jobs module ──
+    ;(function() {
+      var KEY = 'workhard_saved_jobs';
+      function getSaved() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e) { return []; } }
+      function setSaved(arr) { localStorage.setItem(KEY, JSON.stringify(arr)); }
+      function makeId(title, company) { return (title + '|' + company).toLowerCase().replace(/\s+/g, '-'); }
+
+      function readCard(card) {
+        var title   = (card.querySelector('.jcard__title')   || {}).textContent || '';
+        var company = (card.querySelector('.jcard__company') || {}).textContent || '';
+        var salary  = (card.querySelector('.jcard__salary')  || {}).textContent || '';
+        var logoEl  = card.querySelector('.jcard__logo');
+        var logoBg  = logoEl ? logoEl.style.background : '#ccc';
+        var logoTxt = logoEl ? logoEl.textContent.trim() : '?';
+        var location = '';
+        card.querySelectorAll('.jcard__meta-item').forEach(function(el) {
+          var t = el.textContent.trim();
+          if (!location && t.indexOf('🕐') < 0 && t.indexOf('⚡') < 0) location = t;
+        });
+        return { title: title.trim(), company: company.trim(), salary: salary.trim(), location: location, logoBg: logoBg, logoTxt: logoTxt };
+      }
+
+      window.toggleSaveJob = function(btn) {
+        var card = btn.closest('.jcard');
+        var d    = readCard(card);
+        var id   = makeId(d.title, d.company);
+        var saved = getSaved();
+        var idx  = saved.findIndex(function(j) { return j.id === id; });
+        if (idx >= 0) {
+          saved.splice(idx, 1);
+          setSaved(saved);
+          btn.classList.remove('jcard__save--saved');
+          btn.setAttribute('aria-label', 'Зберегти');
+        } else {
+          var now = new Date();
+          var mon = ['січ','лют','бер','кві','тра','чер','лип','сер','вер','жов','лис','гру'];
+          saved.push({ id: id, title: d.title, company: d.company, salary: d.salary,
+            location: d.location, logoBg: d.logoBg, logoTxt: d.logoTxt,
+            savedAt: now.getDate() + ' ' + mon[now.getMonth()] + ' ' + now.getFullYear() });
+          setSaved(saved);
+          btn.classList.add('jcard__save--saved');
+          btn.setAttribute('aria-label', 'Видалити зі збережених');
+        }
+      };
+
+      // Restore saved state on load
+      document.querySelectorAll('.jcard__save').forEach(function(btn) {
+        var card = btn.closest('.jcard');
+        if (!card) return;
+        var d = readCard(card);
+        var id = makeId(d.title, d.company);
+        if (getSaved().some(function(j) { return j.id === id; })) {
+          btn.classList.add('jcard__save--saved');
+          btn.setAttribute('aria-label', 'Видалити зі збережених');
+        }
+      });
+    })();
+
     (function () {
       var page1    = document.getElementById('jobs-page-1');
       var page2    = document.getElementById('jobs-page-2');
