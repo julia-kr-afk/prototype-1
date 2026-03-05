@@ -379,6 +379,87 @@
       </div>
     </div>
 
+    <!-- EMPLOYEE REVIEWS GALLERY -->
+    <section class="emp-gallery">
+      <div class="container">
+
+        <div class="emp-gallery__head">
+          <div>
+            <h2 class="emp-gallery__title">Відгуки співробітників</h2>
+            <div class="emp-gallery__meta">
+              <span class="emp-gallery__stars">★★★★★</span>
+              <span class="emp-gallery__score">4.9</span>
+              <span class="emp-gallery__count">· 128 відгуків</span>
+            </div>
+          </div>
+          <a href="company.html" class="emp-gallery__link">Всі відгуки →</a>
+        </div>
+
+        <div class="emp-gallery__grid">
+
+          <!-- Card 1 -->
+          <div class="rgcard">
+            <div class="rgcard__top">
+              <div class="rgcard__stars">★★★★★</div>
+              <div class="rgcard__date">Лютий 2026</div>
+            </div>
+            <p class="rgcard__text">Неймовірна команда і продукт, яким реально пишаєшся. Повна свобода у дизайн-рішеннях — можна запропонувати зміну і за тиждень побачити її у продакшні. Зарплата вища за ринок, remote-friendly культура.</p>
+            <div class="rgcard__divider"></div>
+            <div class="rgcard__author">
+              <div class="rgcard__avatar" style="background:#7C3AED;">АМ</div>
+              <div>
+                <div class="rgcard__name">Анна М.</div>
+                <div class="rgcard__role">Senior Product Designer</div>
+                <span class="rgcard__status rgcard__status--current">Теперішній співробітник</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="rgcard">
+            <div class="rgcard__top">
+              <div class="rgcard__stars">★★★★<span style="color:#E5E7EB;">★</span></div>
+              <div class="rgcard__date">Грудень 2025</div>
+            </div>
+            <p class="rgcard__text">Крутий продукт з реальною аудиторією. Хороший соцпакет — медстрахування, бюджет на навчання без зайвої бюрократії. Команда компетентна і відкрита до нових ідей.</p>
+            <div class="rgcard__divider"></div>
+            <div class="rgcard__author">
+              <div class="rgcard__avatar" style="background:#EA580C;">ДК</div>
+              <div>
+                <div class="rgcard__name">Дмитро К.</div>
+                <div class="rgcard__role">Product Designer</div>
+                <span class="rgcard__status rgcard__status--former">Колишній співробітник</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="rgcard">
+            <div class="rgcard__top">
+              <div class="rgcard__stars">★★★★★</div>
+              <div class="rgcard__date">Березень 2026</div>
+            </div>
+            <p class="rgcard__text">Відкрита і сучасна культура. UX-дослідження реально впливають на продуктові рішення — не «у шухляду». Є бюджет на рекрутинг учасників та якісні інструменти.</p>
+            <div class="rgcard__divider"></div>
+            <div class="rgcard__author">
+              <div class="rgcard__avatar" style="background:#0891B2;">МТ</div>
+              <div>
+                <div class="rgcard__name">Марія Т.</div>
+                <div class="rgcard__role">UX Researcher</div>
+                <span class="rgcard__status rgcard__status--current">Теперішній співробітник</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="text-align:center; margin-top:24px;">
+          <a href="company.html" class="emp-gallery__show-more">Показати всі відгуки (128)</a>
+        </div>
+
+      </div>
+    </section>
+
     <!-- SIMILAR JOBS SECTION -->
     <section class="similar-jobs-section">
       <div class="container">
@@ -569,6 +650,103 @@
   <style>
     .job-hero__save-btn--saved { background: rgba(43,92,230,0.08); border-color: var(--color-primary); }
     .job-hero__save-btn--saved svg { fill: var(--color-primary); stroke: var(--color-primary); }
+
+    /* ---- Employee Reviews Gallery ---- */
+    .emp-gallery {
+      padding: 56px 0;
+      background: var(--color-bg);
+    }
+    .emp-gallery__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .emp-gallery__title {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 8px;
+    }
+    .emp-gallery__meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .emp-gallery__stars { color: #F59E0B; font-size: 16px; }
+    .emp-gallery__score { font-weight: 700; font-size: var(--font-size-base); color: var(--color-text); }
+    .emp-gallery__count { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+    .emp-gallery__link {
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      font-weight: 500;
+      white-space: nowrap;
+      padding-top: 4px;
+    }
+    .emp-gallery__link:hover { text-decoration: underline; }
+
+    .emp-gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .rgcard {
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .rgcard__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .rgcard__stars { color: #F59E0B; font-size: 16px; line-height: 1; }
+    .rgcard__date  { font-size: var(--font-size-xs); color: var(--color-text-secondary); }
+    .rgcard__text  {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .rgcard__divider { height: 1px; background: var(--color-border); }
+    .rgcard__author  { display: flex; align-items: center; gap: 12px; }
+    .rgcard__avatar  {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .rgcard__name   { font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text); }
+    .rgcard__role   { font-size: var(--font-size-xs); color: var(--color-text-secondary); margin-top: 1px; }
+    .rgcard__status { font-size: var(--font-size-xs); font-weight: 500; display: inline-block; margin-top: 2px; }
+    .rgcard__status--current { color: var(--color-success); }
+    .rgcard__status--former  { color: var(--color-text-secondary); }
+
+    .emp-gallery__show-more {
+      display: inline-block;
+      padding: 10px 28px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-primary);
+      transition: border-color .2s, background .2s;
+    }
+    .emp-gallery__show-more:hover {
+      border-color: var(--color-primary);
+      background: rgba(43,92,230,.04);
+    }
   </style>
 
   <script>

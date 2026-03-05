@@ -251,6 +251,30 @@
     }
 
     .btn-ai:hover { background: rgba(245,158,11,0.18); }
+    .btn-ai:disabled { opacity: 0.65; cursor: wait; }
+
+    .btn-ai-spinner {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid #B45309;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: ai-spin 0.55s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes ai-spin { to { transform: rotate(360deg); } }
+
+    .rb-textarea--ai-typing {
+      border-color: var(--color-primary) !important;
+      box-shadow: 0 0 0 3px rgba(43,92,230,0.10);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .rb-textarea--ai-done {
+      border-color: var(--color-success) !important;
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
 
     .rb-duties-header {
       display: flex;
@@ -985,9 +1009,9 @@
 
             <div class="rb-summary-footer">
               <span class="rb-char-count" id="summaryCount">0 / 600 символів</span>
-              <button class="btn-regenerate">
+              <button class="btn-regenerate" onclick="generateSummary(this)">
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5M8 2.5V0l3 2.5-3 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Generate again
+                Згенерувати
               </button>
             </div>
           </div>
@@ -1374,6 +1398,105 @@
       btn.closest('.rb-exp-card').remove();
       updatePreview();
     }
+
+    // ── Generate summary ──
+    var SUMMARY_TEXTS = {
+      0: "Досвідчений Product Designer з 5+ роками у фінтех та мобільних продуктах. Спеціалізуюся на user research, дизайн-системах та мобільних інтерфейсах. Допомагаю командам приймати рішення на основі даних і доставляти продукти, якими користувачі залюбки користуються щодня.",
+      1: "Я той, хто перетворює хаос вимог на інтерфейси, якими хочеться користуватись. За 5 років у product design навчився чути не тільки слова користувачів, а й те, що вони не кажуть. Моя суперсила \u2014 знаходити баланс між красою та функціональністю в умовах реального бізнесу.",
+      2: "Кваліфікований спеціаліст з розробки цифрових продуктів з досвідом понад 5 років у сфері UX/UI дизайну. Маю підтверджені компетенції у проведенні дослідження користувачів, розробці дизайн-систем та управлінні продуктовим процесом від концепції до релізу."
+    };
+
+    function generateSummary(btn) {
+      if (btn.disabled) return;
+
+      var activeTabIdx = 0;
+      document.querySelectorAll('.rb-tab').forEach(function(t, i) {
+        if (t.classList.contains('rb-tab--active')) activeTabIdx = i;
+      });
+
+      var text = SUMMARY_TEXTS[activeTabIdx] || SUMMARY_TEXTS[0];
+      var textarea = $('rb-summary');
+
+      var origHTML = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-ai-spinner"></span> Генерую\u2026';
+
+      setTimeout(function() {
+        textarea.value = '';
+        textarea.classList.add('rb-textarea--ai-typing');
+        updateCharCount();
+
+        var chars = text.split('');
+        var i = 0;
+
+        function typeNext() {
+          if (i < chars.length) {
+            textarea.value += chars[i++];
+            updateCharCount();
+            updatePreview();
+            setTimeout(typeNext, 5);
+          } else {
+            textarea.classList.remove('rb-textarea--ai-typing');
+            textarea.classList.add('rb-textarea--ai-done');
+            setTimeout(function() { textarea.classList.remove('rb-textarea--ai-done'); }, 900);
+            btn.disabled = false;
+            btn.innerHTML = origHTML;
+            updateCharCount();
+            updatePreview();
+          }
+        }
+
+        typeNext();
+      }, 1000);
+    }
+
+    // ── AI "Покращити з AI" button ──
+    var AI_TEXTS = [
+      "• Спроектував мобільний додаток для 2M+ активних користувачів, підвищивши NPS з 72 до 89 балів\n• Розробив та впровадив дизайн-систему з 200+ компонентів, скоротивши час розробки нових фіч на 40%\n• Провів 30+ UX-інтерв\u02BCю та 15 юзабіліті-тестів, виявивши критичні проблеми у ключових сценаріях\n• Переробив процес онбордингу та підвищив конверсію нових користувачів на 28% за 3 місяці",
+      "• Розробив UI/UX-дизайн для 5 корпоративних продуктів, якими користуються 50K+ співробітників\n• Провів 40+ сесій user research та юзабіліті-тестування \u2014 кількість підтримних запитів скоротилась на 35%\n• Створив 120+ екранів та інтерактивних прототипів у Figma для 3 великих продуктових релізів\n• Впровадив Atomic Design методологію, що забезпечило консистентний UI та прискорило дизайн-процес"
+    ];
+
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.btn-ai');
+      if (!btn || btn.disabled) return;
+
+      var textarea = btn.closest('.rb-duties-header').nextElementSibling;
+      if (!textarea || textarea.tagName !== 'TEXTAREA') return;
+
+      var allBtns = Array.from(document.querySelectorAll('.btn-ai'));
+      var idx = allBtns.indexOf(btn);
+      var improved = AI_TEXTS[idx] || AI_TEXTS[0];
+
+      // Loading state
+      var originalHTML = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-ai-spinner"></span> Генерую\u2026';
+
+      setTimeout(function() {
+        textarea.value = '';
+        textarea.classList.add('rb-textarea--ai-typing');
+
+        var chars = improved.split('');
+        var i = 0;
+
+        function typeNext() {
+          if (i < chars.length) {
+            textarea.value += chars[i++];
+            updatePreview();
+            setTimeout(typeNext, 4);
+          } else {
+            textarea.classList.remove('rb-textarea--ai-typing');
+            textarea.classList.add('rb-textarea--ai-done');
+            setTimeout(function() { textarea.classList.remove('rb-textarea--ai-done'); }, 900);
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+            updatePreview();
+          }
+        }
+
+        typeNext();
+      }, 1100);
+    });
 
     // Init — sync skills into preview on load
     updatePreview();
